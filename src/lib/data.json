@@ -1,0 +1,12 @@
+[
+	{
+		"id": "a1",
+		"author": {
+			"name": "Cosme Fulanito",
+			"email": "cosme@xd.com"
+		},
+		"title": "Cosme's post",
+		"content": "Cosme's content",
+		"published": false
+	}
+]
