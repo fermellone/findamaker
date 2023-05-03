@@ -13,7 +13,7 @@
 			) {
 				goto('/');
 			} else {
-				const resp = await fetch('/api/user', {
+				const resp = await fetch('/api/users', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'

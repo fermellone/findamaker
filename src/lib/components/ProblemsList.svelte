@@ -1,8 +1,15 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import { userState } from '$lib/store';
 	import type { Problem } from '../../models/problem';
 
 	export let problems: Problem[] = [];
+
+	const dispatcher = createEventDispatcher();
+
+	const toggleUpVote = async (problem: Problem) => {
+		dispatcher('toggle-upvote', problem.id);
+	};
 </script>
 
 <ul class="divide-y divide-gray-100">
@@ -39,6 +46,9 @@
 					<dt>
 						<span class="sr-only">Total votes</span>
 						<button
+							on:click={() => {
+								toggleUpVote(problem);
+							}}
 							class="p-2 bg-slate-50 border rounded-md {problem.upVotes.find(
 								(uv) => uv.user?.id === $userState?.id
 							)

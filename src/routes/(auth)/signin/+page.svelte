@@ -6,7 +6,7 @@
 		const response = await signInWithGoogle();
 
 		if (response.user) {
-			const userResp = await fetch(`/api/user/${response.user.uid}`);
+			const userResp = await fetch(`/api/users/${response.user.uid}`);
 			const user = await userResp.json();
 
 			localStorage.setItem('user', JSON.stringify(user));

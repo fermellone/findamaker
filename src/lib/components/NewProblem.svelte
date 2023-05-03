@@ -1,3 +1,19 @@
+<script lang="ts">
+	// create a new dispatcher
+	import { createEventDispatcher } from 'svelte';
+
+	const dispatcher = createEventDispatcher();
+
+	const handleShareNewProblem = async (event: Event) => {
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
+
+		const description = formData.get('description') as string;
+
+		dispatcher('submit', { description });
+	};
+</script>
+
 <div class="bg-white shadow sm:rounded-lg">
 	<div class="px-4 py-5 sm:p-6">
 		<h3 class="text-base font-semibold leading-6 text-gray-900">Tell us your problem</h3>
@@ -9,12 +25,13 @@
 				👀
 			</p>
 		</div>
-		<form class="mt-5 sm:flex sm:items-center">
+		<form class="mt-5 sm:flex sm:items-center" on:submit|preventDefault={handleShareNewProblem}>
 			<div class="w-full">
-				<label for="problem" class="sr-only">Your f*king problem</label>
+				<label for="description" class="sr-only">Your f*king problem</label>
 				<textarea
-					name="problem"
-					id="problem"
+					required
+					name="description"
+					id="description"
 					class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 					placeholder="eg.: I can't find a good pizza."
 				/>

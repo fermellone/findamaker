@@ -35,4 +35,6 @@ model UpVote {
   userId    String
   problem   Problem @relation(fields: [problemId], references: [id])
   user      User    @relation(fields: [userId], references: [id])
+
+  @@unique(fields: [userId, problemId], name: "userUpVoteId")
 }
