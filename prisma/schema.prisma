@@ -13,11 +13,10 @@ datasource db {
 model Problem {
   id          Int      @id @default(autoincrement())
   description String
-  upVotes     Int      @default(0)
-  downVotes   Int      @default(0)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
   createdAt   DateTime @default(now())
+  upVotes     UpVote[]
 }
 
 model User {
@@ -27,4 +26,13 @@ model User {
   username       String    @unique
   profilePicture String
   problems       Problem[]
+  upVotes        UpVote[]
+}
+
+model UpVote {
+  id        Int     @id @default(autoincrement())
+  problemId Int
+  userId    String
+  problem   Problem @relation(fields: [problemId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
 }

@@ -14,12 +14,3 @@ export const signInWithGoogle = () => {
 	const provider = new GoogleAuthProvider();
 	return signInWithPopup(authDataSource, provider);
 };
-
-onAuthStateChanged(authDataSource, (user) => {
-	if (browser && !user) {
-		userState.set(null);
-		goto('/login');
-	} else {
-		userState.set(user);
-	}
-});

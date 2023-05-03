@@ -2,11 +2,44 @@
 	import { goto } from '$app/navigation';
 	import { signInWithGoogle } from '$lib/firebase';
 
-	const handleLogin = async () => {
-		const response = await signInWithGoogle();
+	let username = '';
 
-		if (response.user) {
-			goto('/');
+	const handleSignin = async () => {
+		try {
+			const { user: firebaseUser } = await signInWithGoogle();
+			if (
+				localStorage.getItem('user') &&
+				JSON.parse(localStorage.getItem('user')!).id === firebaseUser.uid
+			) {
+				goto('/');
+			} else {
+				const resp = await fetch('/api/user', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						id: firebaseUser.uid,
+						name: firebaseUser.displayName,
+						username: username,
+						email: firebaseUser.email,
+						profilePicture: firebaseUser.photoURL
+					})
+				});
+				if (resp.ok) {
+					const user = await resp.json();
+					localStorage.setItem('user', JSON.stringify(user));
+					goto('/');
+				} else if (resp.status === 403) {
+					alert('You are already registered!');
+					goto('/signin');
+				} else {
+					throw new Error('Something went wrong: ' + resp.statusText);
+				}
+			}
+		} catch (error) {
+			console.log(error);
+			alert('Something went wrong!');
 		}
 	};
 </script>
@@ -17,11 +50,32 @@
 			<div>
 				<div class="grid grid-cols-1 gap-4">
 					<h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-						Sign in to your account
+						Sign up
 					</h2>
+					<div>
+						<label for="username" class="block text-sm font-medium leading-6 text-gray-900"
+							>Select a username</label
+						>
+						<div class="mt-2 flex rounded-sm shadow-sm">
+							<span
+								class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm"
+								>@</span
+							>
+							<input
+								type="text"
+								name="username"
+								id="username"
+								bind:value={username}
+								autocomplete="off"
+								class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+								placeholder="cosmefulanito"
+							/>
+						</div>
+					</div>
 					<button
-						on:click={handleLogin}
-						class="flex w-full items-center justify-center gap-3 rounded-md bg-orange-600 px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+						disabled={!username}
+						on:click={handleSignin}
+						class="flex w-full items-center justify-center gap-3 rounded-sm bg-orange-600 px-3 py-1.5 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
 					>
 						<svg
 							class="h-5 2-5"

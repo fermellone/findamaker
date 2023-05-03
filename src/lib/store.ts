@@ -1,14 +1,6 @@
-import { browser } from '$app/environment';
-import { writable } from 'svelte/store';
+import { writable, type Writable } from 'svelte/store';
+import type { User } from '../models/user';
 
 export const pageTitle = writable('My App');
 
-export const userState = writable();
-
-userState.subscribe((user) => {
-	if (browser) {
-		if (user) {
-			localStorage.setItem('user', JSON.stringify(user));
-		}
-	}
-});
+export const userState: Writable<User | null> = writable();

@@ -1,13 +1,14 @@
 <script lang="ts">
 	import '../../app.postcss';
-	import { pageTitle } from '$lib/store';
+	import { pageTitle, userState } from '$lib/store';
 	import { authDataSource } from '$lib/firebase';
-	import { browser } from '$app/environment';
 	import { page } from '$app/stores';
 
-	import { fade, slide } from 'svelte/transition';
-
-	let user: boolean = false;
+	import { slide } from 'svelte/transition';
+	import { onDestroy, onMount } from 'svelte';
+	import { onAuthStateChanged, type Unsubscribe } from 'firebase/auth';
+	import { browser } from '$app/environment';
+	import { goto } from '$app/navigation';
 
 	let isMenuOpen = false;
 
@@ -15,15 +16,48 @@
 		await authDataSource.signOut();
 	};
 
-	$: user = browser && localStorage && !!localStorage?.getItem('user');
+	let unsubscribe: Unsubscribe;
 
-	$: userData = authDataSource.currentUser;
+	onMount(() => {
+		if (browser) {
+			unsubscribe = onAuthStateChanged(authDataSource, async (firebaseUser) => {
+				try {
+					if (firebaseUser) {
+						const storedUser = localStorage.getItem('user');
+
+						console.log(storedUser, firebaseUser.uid);
+
+						if (storedUser && JSON.parse(storedUser).id === firebaseUser.uid) {
+							userState.set(JSON.parse(storedUser));
+						} else {
+							await authDataSource.signOut();
+							userState.set(null);
+							localStorage.removeItem('user');
+							goto('/signin');
+						}
+					} else {
+						userState.set(null);
+						localStorage.removeItem('user');
+						goto('/signin');
+					}
+				} catch (error) {
+					console.log(error);
+				}
+			});
+		}
+	});
+
+	onDestroy(() => {
+		if (unsubscribe) {
+			unsubscribe();
+		}
+	});
 </script>
 
 <svelte:head>
 	<title>{$pageTitle}</title>
 </svelte:head>
-{#if !user}
+{#if !$userState}
 	Loading...
 {:else}
 	<div class="min-h-full">
@@ -52,8 +86,8 @@
 								aria-current="page">Problems over the world</a
 							>
 							<a
-								href="/following"
-								class="{$page.url.pathname === '/following'
+								href="/mine"
+								class="{$page.url.pathname === '/mine'
 									? 'current'
 									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
 								>Problems that you're following</a
@@ -86,7 +120,7 @@
 									aria-expanded="false"
 									aria-haspopup="true"
 								>
-									<img class="h-8 w-8 rounded-full" src={userData?.photoURL} alt="" />
+									<img class="h-8 w-8 rounded-full" src={$userState.profilePicture} alt="" />
 								</button>
 							</div>
 						</div>
@@ -95,7 +129,6 @@
 						<!-- Mobile menu button -->
 						<button
 							on:click={() => {
-								console.log('sii');
 								isMenuOpen = !isMenuOpen;
 							}}
 							type="button"
@@ -164,13 +197,14 @@
 					<div class="border-t border-gray-200 pb-3 pt-4">
 						<div class="flex items-center px-4">
 							<div class="flex-shrink-0">
-								<img class="h-10 w-10 rounded-full" src={userData?.photoURL} alt="" />
+								<img class="h-10 w-10 rounded-full" src={$userState.profilePicture} alt="" />
 							</div>
 							<div class="ml-3">
-								<div class="text-base font-medium text-gray-800">{userData?.displayName}</div>
-								<div class="text-sm font-medium text-gray-500">{userData?.email}</div>
+								<div class="text-base font-medium text-gray-800">{$userState.name}</div>
+								<div class="text-sm font-medium text-gray-500">{$userState.email}</div>
 							</div>
 							<button
+								on:click={handleLogout}
 								type="button"
 								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 							>
