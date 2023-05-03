@@ -3,10 +3,10 @@
 		"id": "a1",
 		"author": {
 			"name": "Cosme Fulanito",
-			"email": "cosme@xd.com"
+			"username": "@cosmeFu",
+			"email": "cosme@xd.com",
+			"profilePicture": "https://pbs.twimg.com/profile_images/1550783048467107842/_80_pQ2a_400x400.jpg"
 		},
-		"title": "Cosme's post",
-		"content": "Cosme's content",
-		"published": false
+		"description": "Cosme's problem"
 	}
 ]

@@ -3,17 +3,21 @@
 	import { pageTitle } from '$lib/store';
 	import { authDataSource } from '$lib/firebase';
 	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+
+	import { fade, slide } from 'svelte/transition';
 
 	let user: boolean = false;
+
+	let isMenuOpen = false;
 
 	const handleLogout = async () => {
 		await authDataSource.signOut();
 	};
 
-	onMount(() => {
-		user = browser && localStorage && !!localStorage?.getItem('user');
-	});
+	$: user = browser && localStorage && !!localStorage?.getItem('user');
+
+	$: userData = authDataSource.currentUser;
 </script>
 
 <svelte:head>
@@ -40,26 +44,26 @@
 							/>
 						</div>
 						<div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-							<!-- Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" -->
 							<a
-								href="#"
-								class="border-indigo-500 text-gray-900 inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								aria-current="page">Dashboard</a
+								href="/"
+								class="{$page.url.pathname === '/'
+									? 'current'
+									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+								aria-current="page">Problems over the world</a
 							>
 							<a
-								href="#"
-								class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								>Team</a
+								href="/following"
+								class="{$page.url.pathname === '/following'
+									? 'current'
+									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+								>Problems that you're following</a
 							>
 							<a
-								href="#"
-								class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								>Projects</a
-							>
-							<a
-								href="#"
-								class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								>Calendar</a
+								href="/being-solved"
+								class="{$page.url.pathname === '/being-solved'
+									? 'current'
+									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+								>Problems that are being solved</a
 							>
 						</div>
 					</div>
@@ -82,12 +86,7 @@
 									aria-expanded="false"
 									aria-haspopup="true"
 								>
-									<span class="sr-only">Open user menu</span>
-									<img
-										class="h-8 w-8 rounded-full"
-										src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-										alt=""
-									/>
+									<img class="h-8 w-8 rounded-full" src={userData?.photoURL} alt="" />
 								</button>
 							</div>
 						</div>
@@ -95,6 +94,10 @@
 					<div class="-mr-2 flex items-center sm:hidden">
 						<!-- Mobile menu button -->
 						<button
+							on:click={() => {
+								console.log('sii');
+								isMenuOpen = !isMenuOpen;
+							}}
 							type="button"
 							class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 							aria-controls="mobile-menu"
@@ -133,52 +136,50 @@
 			</div>
 
 			<!-- Mobile menu, show/hide based on menu state. -->
-			<div class="sm:hidden" id="mobile-menu">
-				<div class="space-y-1 pb-3 pt-2">
-					<!-- Current: "border-indigo-500 bg-indigo-50 text-indigo-700", Default: "border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800" -->
-					<a
-						href="#"
-						class="border-indigo-500 bg-indigo-50 text-indigo-700 block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						aria-current="page">Dashboard</a
-					>
-					<a
-						href="#"
-						class="border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Team</a
-					>
-					<a
-						href="#"
-						class="border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Projects</a
-					>
-					<a
-						href="#"
-						class="border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Calendar</a
-					>
-				</div>
-				<div class="border-t border-gray-200 pb-3 pt-4">
-					<div class="flex items-center px-4">
-						<div class="flex-shrink-0">
-							<img
-								class="h-10 w-10 rounded-full"
-								src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-								alt=""
-							/>
-						</div>
-						<div class="ml-3">
-							<div class="text-base font-medium text-gray-800">Tom Cook</div>
-							<div class="text-sm font-medium text-gray-500">tom@example.com</div>
-						</div>
-						<button
-							type="button"
-							class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+			{#if isMenuOpen}
+				<div class="sm:hidden" id="mobile-menu" transition:slide>
+					<div class="space-y-1 pb-3 pt-2">
+						<a
+							href="/"
+							class="{$page.url.pathname === '/'
+								? 'current'
+								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+							aria-current="page">Problems over the world</a
 						>
-							Sign out
-						</button>
+						<a
+							href="/mine"
+							class="{$page.url.pathname === '/mine'
+								? 'current'
+								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+							>Your problems</a
+						>
+						<a
+							href="/being-solved"
+							class="{$page.url.pathname === '/being-solved'
+								? 'current'
+								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+							>Problems that are being solved</a
+						>
+					</div>
+					<div class="border-t border-gray-200 pb-3 pt-4">
+						<div class="flex items-center px-4">
+							<div class="flex-shrink-0">
+								<img class="h-10 w-10 rounded-full" src={userData?.photoURL} alt="" />
+							</div>
+							<div class="ml-3">
+								<div class="text-base font-medium text-gray-800">{userData?.displayName}</div>
+								<div class="text-sm font-medium text-gray-500">{userData?.email}</div>
+							</div>
+							<button
+								type="button"
+								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							>
+								Sign out
+							</button>
+						</div>
 					</div>
 				</div>
-			</div>
+			{/if}
 		</nav>
 
 		<div class="py-10">
@@ -190,10 +191,28 @@
 				</div>
 			</header>
 			<main>
-				<div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+				<div class="mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-2">
 					<slot />
 				</div>
 			</main>
 		</div>
 	</div>
 {/if}
+
+<style lang="postcss">
+	.desktop.current {
+		@apply border-indigo-500 text-indigo-700;
+	}
+
+	.desktop.default {
+		@apply border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700;
+	}
+
+	.mobile.current {
+		@apply border-indigo-500 bg-indigo-50 text-indigo-700;
+	}
+
+	.mobile.default {
+		@apply border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800;
+	}
+</style>
