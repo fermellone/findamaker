@@ -12,11 +12,7 @@
 	};
 
 	onMount(() => {
-		try {
-			user = browser && localStorage && !!localStorage?.getItem('user');
-		} catch (error) {
-			console.log('es aca');
-		}
+		user = browser && localStorage && !!localStorage?.getItem('user');
 	});
 </script>
 
