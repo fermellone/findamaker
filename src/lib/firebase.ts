@@ -17,6 +17,7 @@ export const signInWithGoogle = () => {
 
 onAuthStateChanged(authDataSource, (user) => {
 	if (browser && !user) {
+		userState.set(null);
 		goto('/login');
 	} else {
 		userState.set(user);
