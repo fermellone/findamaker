@@ -5,6 +5,8 @@
 	const dispatch = createEventDispatcher();
 
 	function handleClose() {
+		dialog.close();
+		showModal = false;
 		dispatch('close');
 	}
 
@@ -23,10 +25,11 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<dialog
 		bind:this={dialog}
-		on:close={() => (showModal = false)}
+		on:close={() => {
+			handleClose();
+		}}
 		on:click|self={() => {
 			handleClose();
-			dialog.close();
 		}}
 		class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-auto p-4 md:p-8 text-left relative text-black"
 	>
@@ -41,8 +44,6 @@
 			type="button"
 			on:click={() => {
 				handleClose();
-				showModal = false;
-				dialog.close();
 			}}
 		>
 			<div
@@ -59,7 +60,7 @@
 				on:click={async () => {
 					isLoading = true;
 					if (onSubmitCallback) await onSubmitCallback();
-					dialog.close();
+					handleClose();
 					isLoading = false;
 				}}
 				class="mx-auto mt-3 inline-flex w-full sm:w-1/4 items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:mt-0"
