@@ -20,6 +20,13 @@
 					<button class="hover:underline">{problem.description}</button>
 				</p>
 				<div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+					{#if $userState}
+						<img
+							class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+							src={$userState.profilePicture}
+							alt={$userState.name}
+						/>
+					{/if}
 					<p>
 						<span>{problem.author.username}</span>
 					</p>
