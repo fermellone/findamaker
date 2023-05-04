@@ -7,11 +7,16 @@
 
 		if (response.user) {
 			const userResp = await fetch(`/api/users/${response.user.uid}`);
-			const user = await userResp.json();
+			if (userResp.ok) {
+				const user = await userResp.json();
 
-			localStorage.setItem('user', JSON.stringify(user));
+				localStorage.setItem('user', JSON.stringify(user));
 
-			goto('/');
+				goto('/');
+			} else if (userResp.status === 404) {
+				alert("This account doesn't exist. Please sign up first.");
+				goto('/signup');
+			}
 		}
 	};
 </script>
