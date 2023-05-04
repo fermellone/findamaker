@@ -5,6 +5,9 @@
 	import type { PageData } from './$types';
 	import type { Problem } from '../../models/problem';
 	import type { UpVote } from '../../models/up-vote';
+	import Modal from '$lib/components/Modal.svelte';
+
+	let isProblemDetailsModalOpen = false;
 
 	pageTitle.set('Problems over the world');
 
@@ -12,14 +15,16 @@
 
 	let { problems } = data;
 
-	const createNewProblem = async (event: CustomEvent) => {
+	let focusingProblem: Problem | null = null;
+
+	const createNewProblem = async (problemDescription: string) => {
 		try {
 			const response = await fetch('/api/problems', {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({ description: event.detail.description, authorId: $userState!.id })
+				body: JSON.stringify({ description: problemDescription, authorId: $userState!.id })
 			});
 
 			if (response.ok) {
@@ -96,9 +101,9 @@
 		}
 	};
 
-	const deleteProblem = async (event: CustomEvent) => {
+	const deleteProblem = async (problem: Problem) => {
 		try {
-			const response = await fetch(`/api/problems/${event.detail.problemId}`, {
+			const response = await fetch(`/api/problems/${problem.id}`, {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json'
@@ -106,7 +111,7 @@
 			});
 
 			if (response.ok) {
-				problems = problems.filter((problem) => problem.id !== event.detail.problemId);
+				problems = problems.filter((p) => p.id !== problem.id);
 			} else {
 				throw new Error('Something went wrong');
 			}
@@ -114,8 +119,30 @@
 			alert(error.message);
 		}
 	};
+
+	const onProblemClicked = (event: CustomEvent) => {
+		const problem = event.detail.problem as Problem;
+		focusingProblem = problem;
+		isProblemDetailsModalOpen = true;
+	};
 </script>
 
-<NewProblem on:submit={createNewProblem} />
+<NewProblem onSubmitCallback={createNewProblem} />
 
-<ProblemsList {problems} on:toggle-upvote={toggleUpVote} on:delete-problem={deleteProblem} />
+<ProblemsList
+	{problems}
+	on:toggle-upvote={toggleUpVote}
+	onDeleteProblemCallback={deleteProblem}
+	on:click-problem={onProblemClicked}
+/>
+
+<Modal
+	title="Problem details"
+	showModal={isProblemDetailsModalOpen}
+	on:close={() => {
+		isProblemDetailsModalOpen = false;
+		focusingProblem = null;
+	}}
+>
+	<p>yes</p>
+</Modal>

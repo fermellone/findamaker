@@ -5,6 +5,7 @@
 	import Modal from './Modal.svelte';
 
 	export let problems: Problem[] = [];
+	export let onDeleteProblemCallback: (problem: Problem) => Promise<void>;
 	let isDeleteModalOpen = false;
 	let deletingProblem: Problem | null = null;
 
@@ -12,12 +13,6 @@
 
 	const toggleUpVote = async (problem: Problem) => {
 		dispatcher('toggle-upvote', { problemId: problem.id });
-	};
-
-	const deleteProblem = (problem: Problem) => {
-		dispatcher('delete-problem', { problemId: problem.id });
-		deletingProblem = null;
-		isDeleteModalOpen = false;
 	};
 
 	const openDeleteProblemModal = (problem: Problem) => {
@@ -31,8 +26,15 @@
 		<li
 			class="flex flex-wrap items-center justify-between gap-x-6 sm:gap-y-4 py-5 px-4 sm:flex-nowrap"
 		>
-			<div>
-				<p class="text-sm font-semibold leading-6 text-gray-900 overflow-hidden line-clamp-2">
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div
+				on:click={() => {
+					dispatcher('click-problem', { problem });
+				}}
+			>
+				<p
+					class="text-sm font-semibold leading-6 text-gray-900 overflow-hidden line-clamp-2 select-none"
+				>
 					{problem.description}
 				</p>
 				<div class="mt-3 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
@@ -149,6 +151,10 @@
 	subTitle={deletingProblem?.description ?? ''}
 	showModal={isDeleteModalOpen}
 	onSubmitCallback={async () => {
-		if (deletingProblem) deleteProblem(deletingProblem);
+		if (deletingProblem) {
+			await onDeleteProblemCallback(deletingProblem);
+			deletingProblem = null;
+			isDeleteModalOpen = false;
+		}
 	}}
 />

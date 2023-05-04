@@ -1,18 +1,21 @@
 <script lang="ts">
-	// create a new dispatcher
-	import { createEventDispatcher } from 'svelte';
+	import Loading from './Loading.svelte';
 
-	const dispatcher = createEventDispatcher();
+	let isSubmitting = false;
+
+	export let onSubmitCallback: (problemDescription: string) => Promise<void>;
 
 	const handleShareNewProblem = async (event: Event) => {
+		isSubmitting = true;
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 
 		const description = formData.get('description') as string;
 
-		dispatcher('submit', { description });
+		await onSubmitCallback(description);
 
 		form.reset();
+		isSubmitting = false;
 	};
 </script>
 
@@ -27,7 +30,12 @@
 				👀
 			</p>
 		</div>
-		<form class="mt-5 sm:flex sm:items-center" on:submit|preventDefault={handleShareNewProblem}>
+		<form
+			class="mt-5 sm:flex sm:items-center"
+			on:submit|preventDefault={async (event) => {
+				await handleShareNewProblem(event);
+			}}
+		>
 			<div class="w-full">
 				<label for="description" class="sr-only">Your f*king problem</label>
 				<textarea
@@ -40,9 +48,15 @@
 			</div>
 			<button
 				type="submit"
-				class="mt-3 inline-flex w-full sm:w-1/4 items-center justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0"
-				>Share it!</button
+				class="mt-3 inline-flex flex-nowrap w-full items-center justify-center sm:w-1/4 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0"
 			>
+				{#if isSubmitting}
+					<Loading />
+					<span class="block">Sharing...</span>
+				{:else}
+					<span>Share it!</span>
+				{/if}
+			</button>
 		</form>
 	</div>
 </div>
