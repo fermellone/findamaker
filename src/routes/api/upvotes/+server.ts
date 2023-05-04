@@ -11,6 +11,9 @@ export const POST: RequestHandler = async ({ request }) => {
 		data: {
 			problemId: data.problemId,
 			userId: data.userId
+		},
+		include: {
+			user: true
 		}
 	});
 

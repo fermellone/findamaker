@@ -8,31 +8,31 @@ const prisma = new PrismaClient();
 async function main() {
 	console.log(`Start seeding ...`);
 
-	const allUsers = await prisma.user.findMany();
+	// const allUsers = await prisma.user.findMany();
 
-	if (allUsers.length) {
-		console.log(`Users already exist, seeding skipped.`);
-		return;
-	}
+	// if (allUsers.length) {
+	// 	console.log(`Users already exist, seeding skipped.`);
+	// 	return;
+	// }
 
-	for (const p of userData) {
-		const user = await prisma.user.create({
-			data: {
-				id: p.id,
-				name: p.author.name,
-				username: p.author.username,
-				email: p.author.email,
-				profilePicture: p.author.profilePicture,
-				problems: {
-					create: {
-						description: p.description
-					}
-				}
-			}
-		});
-		console.log(`Created user with id: ${user.id}`);
-	}
-	console.log(`Seeding finished.`);
+	// for (const p of userData) {
+	// 	const user = await prisma.user.create({
+	// 		data: {
+	// 			id: p.id,
+	// 			name: p.author.name,
+	// 			username: p.author.username,
+	// 			email: p.author.email,
+	// 			profilePicture: p.author.profilePicture,
+	// 			problems: {
+	// 				create: {
+	// 					description: p.description
+	// 				}
+	// 			}
+	// 		}
+	// 	});
+	// 	console.log(`Created user with id: ${user.id}`);
+	// }
+	// console.log(`Seeding finished.`);
 }
 
 main()
