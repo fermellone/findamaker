@@ -49,18 +49,16 @@
 				</div>
 			</div>
 			<dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
-				<div class="flex -space-x-0.5">
+				<div class="flex -space-x-0.5" title={`These people\nhave the same problem.`}>
 					<dt class="sr-only">Followers</dt>
 					{#each problem.upVotes as upvote}
-						{#if upvote.userId !== $userState?.id}
-							<dd>
-								<img
-									class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
-									src={upvote.user?.profilePicture}
-									alt={upvote.user?.name}
-								/>
-							</dd>
-						{/if}
+						<dd>
+							<img
+								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+								src={upvote.user?.profilePicture}
+								alt={upvote.user?.name}
+							/>
+						</dd>
 					{/each}
 				</div>
 				<div class="flex w-16 gap-x-2.5">
