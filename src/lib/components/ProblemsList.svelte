@@ -40,13 +40,15 @@
 				<div class="flex -space-x-0.5">
 					<dt class="sr-only">Followers</dt>
 					{#each problem.upVotes as upvote}
-						<dd>
-							<img
-								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
-								src={upvote.user?.profilePicture}
-								alt={upvote.user?.name}
-							/>
-						</dd>
+						{#if upvote.userId !== $userState?.id}
+							<dd>
+								<img
+									class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+									src={upvote.user?.profilePicture}
+									alt={upvote.user?.name}
+								/>
+							</dd>
+						{/if}
 					{/each}
 				</div>
 				<div class="flex w-16 gap-x-2.5">
