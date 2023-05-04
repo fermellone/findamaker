@@ -8,7 +8,7 @@
 	const dispatcher = createEventDispatcher();
 
 	const toggleUpVote = async (problem: Problem) => {
-		dispatcher('toggle-upvote', problem.id);
+		dispatcher('toggle-upvote', { problemId: problem.id });
 	};
 </script>
 
