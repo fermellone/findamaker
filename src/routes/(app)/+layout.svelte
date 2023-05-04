@@ -20,7 +20,6 @@
 
 	onMount(() => {
 		if (browser) {
-			console.log('si');
 			unsubscribe = onAuthStateChanged(authDataSource, async (firebaseUser) => {
 				try {
 					if (firebaseUser) {
@@ -39,7 +38,6 @@
 						localStorage.removeItem('user');
 						goto('/signin');
 					}
-					console.log('sep');
 				} catch (error) {
 					console.log(error);
 				}
