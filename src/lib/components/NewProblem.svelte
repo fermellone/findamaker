@@ -11,6 +11,8 @@
 		const description = formData.get('description') as string;
 
 		dispatcher('submit', { description });
+
+		form.reset();
 	};
 </script>
 
