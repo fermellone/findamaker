@@ -72,16 +72,21 @@
 		const { problemId } = event.detail;
 
 		const problemIndex = problems.findIndex((problem) => problem.id === problemId);
-		const userUpVoteIndex = problems[problemIndex].upVotes.findIndex(
-			(upvote) => upvote.user?.id === $userState?.id
-		);
+		const userUpVoteIndex = problems[problemIndex].upVotes.findIndex((upvote) => {
+			return upvote.userId === $userState?.id;
+		});
 
 		try {
 			if (userUpVoteIndex !== -1) {
 				await deleteUpVote(problems[problemIndex].upVotes[userUpVoteIndex].id);
-				const updatedUpVotes = problems[problemIndex].upVotes.splice(userUpVoteIndex, 1);
+				const updatedUpVotes = problems[problemIndex].upVotes.filter(
+					({ id }) => id !== problems[problemIndex].upVotes[userUpVoteIndex].id
+				);
 
 				problems[problemIndex].upVotes = updatedUpVotes;
+				const problemsCopy = problems;
+
+				problems = [...problemsCopy];
 			} else {
 				const newUpVote = await createUpVote($userState!.id, problemId);
 				problems[problemIndex].upVotes = [newUpVote, ...problems[problemIndex].upVotes];

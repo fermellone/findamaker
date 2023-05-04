@@ -5,7 +5,14 @@ import type { PageServerLoad } from './$types';
 export const load = (async () => {
 	const response = (await prisma.problem.findMany({
 		orderBy: { createdAt: 'desc' },
-		include: { author: true, upVotes: true }
+		include: {
+			author: true,
+			upVotes: {
+				include: {
+					user: true
+				}
+			}
+		}
 	})) as Problem[];
 
 	return { problems: response };

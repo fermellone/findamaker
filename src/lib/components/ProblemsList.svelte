@@ -50,7 +50,7 @@
 								toggleUpVote(problem);
 							}}
 							class="p-2 bg-slate-50 border rounded-md {problem.upVotes.find(
-								(uv) => uv.user?.id === $userState?.id
+								(uv) => uv.userId === $userState?.id
 							)
 								? 'text-green-500 border-green-500'
 								: 'text-slate-500 border-slate-500'}"
