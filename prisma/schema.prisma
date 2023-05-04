@@ -11,22 +11,38 @@ datasource db {
 }
 
 model Problem {
-  id          Int      @id @default(autoincrement())
+  id                Int              @id @default(autoincrement())
+  description       String
+  author            User             @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId          String
+  createdAt         DateTime         @default(now())
+  upVotes           UpVote[]
+  possibleSolutions Solution[]
+  SolutionUpVote    SolutionUpVote[]
+}
+
+model Solution {
+  id          Int              @id @default(autoincrement())
+  link        String
   description String
-  author      User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author      User             @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
-  createdAt   DateTime @default(now())
-  upVotes     UpVote[]
+  createdAt   DateTime         @default(now())
+  upVotes     SolutionUpVote[]
+  problemId   Int
+  problem     Problem          @relation(fields: [problemId], references: [id])
 }
 
 model User {
-  id             String    @id
-  email          String    @unique
-  name           String?
-  username       String    @unique
-  profilePicture String
-  problems       Problem[]
-  upVotes        UpVote[]
+  id              String           @id
+  email           String           @unique
+  name            String?
+  username        String           @unique
+  profilePicture  String
+  problems        Problem[]
+  upVotes         UpVote[]
+  solutions       Solution[]
+  solutionUpVotes SolutionUpVote[]
 }
 
 model UpVote {
@@ -37,4 +53,16 @@ model UpVote {
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique(fields: [userId, problemId], name: "userUpVoteId")
+}
+
+model SolutionUpVote {
+  id         Int       @id @default(autoincrement())
+  problemId  Int
+  userId     String
+  problem    Problem   @relation(fields: [problemId], references: [id], onDelete: Cascade)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Solution   Solution? @relation(fields: [solutionId], references: [id])
+  solutionId Int?
+
+  @@unique(fields: [userId, solutionId], name: "userUpVoteId")
 }

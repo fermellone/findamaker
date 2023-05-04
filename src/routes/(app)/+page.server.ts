@@ -11,7 +11,8 @@ export const load = (async () => {
 				include: {
 					user: true
 				}
-			}
+			},
+			possibleSolutions: true
 		}
 	})) as Problem[];
 

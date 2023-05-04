@@ -31,24 +31,32 @@
 				on:click={() => {
 					dispatcher('click-problem', { problem });
 				}}
+				class="w-full cursor-pointer"
 			>
 				<p
 					class="text-sm font-semibold leading-6 text-gray-900 overflow-hidden line-clamp-2 select-none"
 				>
 					{problem.description}
 				</p>
-				<div class="mt-3 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
-					<img
-						class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
-						src={problem.author.profilePicture}
-						alt={problem.author.name}
-					/>
+				<div class="mt-3gap-x-2 text-xs leading-5 text-gray-500">
 					<p>
-						<span>{problem.author.username}</span>
+						<span class="font-bold">Possible solutions: </span>
+						<span class="text-md">{problem.possibleSolutions.length}</span>
 					</p>
-					<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
-						<circle cx="1" cy="1" r="1" />
-					</svg>
+					<div class="flex items-center">
+						<img
+							class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+							src={problem.author.profilePicture}
+							alt={problem.author.name}
+						/>
+						<p class="mx-2">
+							{problem.author.username}
+						</p>
+
+						<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+							<circle cx="1" cy="1" r="1" />
+						</svg>
+					</div>
 					<!-- <p><time datetime="2023-01-23T22:34Z">2d ago</time></p> -->
 				</div>
 			</div>

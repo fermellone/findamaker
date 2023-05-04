@@ -144,5 +144,21 @@
 		focusingProblem = null;
 	}}
 >
-	<p>yes</p>
+	<p>{focusingProblem?.description}</p>
+	<p class="mt-8">
+		<span class="font-bold">Upvotes:</span>
+		<span class="text-md">{focusingProblem?.upVotes.length}</span>
+	</p>
+
+	<div class="flex sm:justify-center items-center mt-12">
+		<a
+			class="mt-3 text-center w-full sm:w-1/3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0"
+			href={`/problems/${focusingProblem?.id}/solve`}>Solve this problem</a
+		>
+		<!-- TODO implement this -->
+		<!-- <a
+			class="mt-3 text-center w-full sm:w-1/3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:ml-3 sm:mt-0"
+			href={`/problems/${focusingProblem?.id}/possible-solutions`}>See the possible solutions</a
+		> -->
+	</div>
 </Modal>

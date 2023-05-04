@@ -97,6 +97,13 @@
 									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
 								>Problems that are being solved</a
 							>
+							<a
+								href="/solving"
+								class="{$page.url.pathname === '/solving'
+									? 'current'
+									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+								>Problems you're solving</a
+							>
 						</div>
 					</div>
 					<div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -190,6 +197,13 @@
 								? 'current'
 								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
 							>Problems that are being solved</a
+						>
+						<a
+							href="/solving"
+							class="{$page.url.pathname === '/solving'
+								? 'current'
+								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+							>Problems you're solving</a
 						>
 					</div>
 					<div class="border-t border-gray-200 pb-3 pt-4">

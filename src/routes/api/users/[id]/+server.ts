@@ -1,8 +1,8 @@
 import prisma from '$lib/prisma';
 import type { RequestHandler } from '@sveltejs/kit';
 
-export const GET: RequestHandler = async ({ url }) => {
-	const id = url.pathname.split('/').pop();
+export const GET: RequestHandler = async ({ params }) => {
+	const {id} = params;
 
 	if (!id) {
 		return new Response('Missing id', { status: 400 });
