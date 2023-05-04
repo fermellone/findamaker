@@ -95,8 +95,27 @@
 			console.log(error);
 		}
 	};
+
+	const deleteProblem = async (event: CustomEvent) => {
+		try {
+			const response = await fetch(`/api/problems/${event.detail.problemId}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			});
+
+			if (response.ok) {
+				problems = problems.filter((problem) => problem.id !== event.detail.problemId);
+			} else {
+				throw new Error('Something went wrong');
+			}
+		} catch (error: any | (Error & { message: string })) {
+			alert(error.message);
+		}
+	};
 </script>
 
 <NewProblem on:submit={createNewProblem} />
 
-<ProblemsList {problems} on:toggle-upvote={toggleUpVote} />
+<ProblemsList {problems} on:toggle-upvote={toggleUpVote} on:delete-problem={deleteProblem} />
