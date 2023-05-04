@@ -28,12 +28,14 @@
 
 <ul class="divide-y divide-gray-100">
 	{#each problems as problem}
-		<li class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 sm:flex-nowrap">
+		<li
+			class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 px-4 sm:flex-nowrap"
+		>
 			<div>
-				<p class="text-sm font-semibold leading-6 text-gray-900">
-					<button class="hover:underline">{problem.description}</button>
+				<p class="text-sm font-semibold leading-6 text-gray-900 overflow-hidden line-clamp-2">
+					{problem.description}
 				</p>
-				<div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
+				<div class="mt-3 flex items-center gap-x-2 text-xs leading-5 text-gray-500">
 					<img
 						class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
 						src={problem.author.profilePicture}
@@ -48,18 +50,32 @@
 					<!-- <p><time datetime="2023-01-23T22:34Z">2d ago</time></p> -->
 				</div>
 			</div>
-			<dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
-				<div class="flex -space-x-0.5" title={`These people\nhave the same problem.`}>
+			<dl
+				class="flex w-full flex-none justify-end sm:justify-between items-end gap-x-4 sm:w-auto mt-0 mb-auto"
+			>
+				<div
+					class="flex -space-x-0.5 justify-center items-center"
+					title={`These people\nhave the same problem.`}
+				>
 					<dt class="sr-only">Followers</dt>
-					{#each problem.upVotes as upvote}
+					{#each problem.upVotes.slice(0, 3) as upvote}
 						<dd>
 							<img
-								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white mb-2"
 								src={upvote.user?.profilePicture}
 								alt={upvote.user?.name}
 							/>
 						</dd>
 					{/each}
+					{#if problem.upVotes.length > 3}
+						<dd>
+							<span
+								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white mb-2 flex items-center justify-center text-xs font-semibold text-gray-900"
+							>
+								+{problem.upVotes.length - 3}
+							</span>
+						</dd>
+					{/if}
 				</div>
 				<div class="flex w-16 gap-x-2.5">
 					{#if problem.authorId === $userState?.id}
@@ -88,36 +104,40 @@
 							</button>
 						</dt>
 					{:else}
-						<dt>
-							<span class="sr-only">Toggle your vote</span>
-							<button
-								on:click={() => {
-									toggleUpVote(problem);
-								}}
-								class="p-2 bg-slate-50 border rounded-md {problem.upVotes.find(
-									(uv) => uv.userId === $userState?.id
-								)
-									? 'text-green-500 border-green-500'
-									: 'text-slate-500 border-slate-500'}"
+						<div class="flex flex-col items-center">
+							<span class="text-md font-bold leading-6 text-gray-900 text-center"
+								>{problem.upVotes.length}</span
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke-width="1.5"
-									stroke="currentColor"
-									class="w-6 h-6"
+							<dt>
+								<span class="sr-only">Toggle your vote</span>
+								<button
+									on:click={() => {
+										toggleUpVote(problem);
+									}}
+									class="p-2 bg-slate-50 border rounded-md {problem.upVotes.find(
+										(uv) => uv.userId === $userState?.id
+									)
+										? 'text-green-500 border-green-500'
+										: 'text-slate-500 border-slate-500'}"
 								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M4.5 15.75l7.5-7.5 7.5 7.5"
-									/>
-								</svg>
-							</button>
-						</dt>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke-width="1.5"
+										stroke="currentColor"
+										class="w-6 h-6"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M4.5 15.75l7.5-7.5 7.5 7.5"
+										/>
+									</svg>
+								</button>
+							</dt>
+						</div>
 					{/if}
-					<dd class="text-sm leading-6 text-gray-900">{problem.upVotes.length}</dd>
 				</div>
 			</dl>
 		</li>

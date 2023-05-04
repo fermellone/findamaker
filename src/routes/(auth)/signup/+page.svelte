@@ -34,12 +34,12 @@
 					alert('You are already registered!');
 					goto('/signin');
 				} else {
-					throw new Error('Something went wrong: ' + resp.statusText);
+					throw new Error(resp.statusText);
 				}
 			}
-		} catch (error) {
+		} catch (error: any | (Error & { message: string })) {
 			console.log(error);
-			alert('Something went wrong!');
+			alert(error.message);
 		}
 	};
 </script>

@@ -4,6 +4,9 @@ import type { RequestHandler } from './$types';
 export const POST: RequestHandler = async ({ request }) => {
 	const data = await request.json();
 
+	if (data.username.includes(' '))
+		return new Response('Username cannot contain spaces', { status: 404 });
+
 	const userWithThisId = await prisma.user.findUnique({
 		where: { id: data.id }
 	});
