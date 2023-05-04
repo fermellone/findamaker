@@ -29,7 +29,7 @@
 <ul class="divide-y divide-gray-100">
 	{#each problems as problem}
 		<li
-			class="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 py-5 px-4 sm:flex-nowrap"
+			class="flex flex-wrap items-center justify-between gap-x-6 sm:gap-y-4 py-5 px-4 sm:flex-nowrap"
 		>
 			<div>
 				<p class="text-sm font-semibold leading-6 text-gray-900 overflow-hidden line-clamp-2">
@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<dl
-				class="flex w-full flex-none justify-end sm:justify-between items-end gap-x-4 sm:w-auto mt-0 mb-auto"
+				class="flex w-full flex-none justify-end sm:justify-between items-end gap-x-2 sm:gap-x-4 sm:w-auto mt-0 mb-auto"
 			>
 				<div
 					class="flex -space-x-0.5 justify-center items-center"
@@ -77,7 +77,7 @@
 						</dd>
 					{/if}
 				</div>
-				<div class="flex w-16 gap-x-2.5">
+				<div class="flex w-16 gap-x-2.5 justify-center">
 					{#if problem.authorId === $userState?.id}
 						<dt>
 							<span class="sr-only">Delete this problem</span>
