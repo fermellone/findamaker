@@ -23,11 +23,12 @@ export const POST: RequestHandler = async ({ request }) => {
 				connect: {
 					id: data.authorId
 				}
-			}
+			},
 		},
 		include: {
 			author: true,
-			upVotes: true
+			upVotes: true,
+			possibleSolutions: true
 		}
 	});
 
