@@ -31,7 +31,8 @@
 		gtag('js', new Date());
 		gtag('config', 'G-DJ2HTPTK1Z');
 	</script> -->
-	
+
+	<!-- Google Tag Manager -->
 	<script>
 		(function (w, d, s, l, i) {
 			w[l] = w[l] || [];
@@ -44,6 +45,7 @@
 			f.parentNode.insertBefore(j, f);
 		})(window, document, 'script', 'dataLayer', 'GTM-MC6KZNK');
 	</script>
+	<!-- End Google Tag Manager -->
 </svelte:head>
 
 <!-- Google Tag Manager (noscript) -->
