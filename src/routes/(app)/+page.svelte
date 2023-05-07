@@ -39,6 +39,12 @@
 
 			if (response.ok) {
 				const newProblem = (await response.json()) as Problem;
+				logAnalyticsEvent(analyticsEvents.CREATE_NEW_PROBLEM, {
+					problemId: newProblem.id,
+					problemDescription: newProblem.description,
+					problemAuthorId: newProblem.authorId,
+					problemAuthorEmail: newProblem.author.email
+				});
 
 				problems = [newProblem, ...problems];
 			} else if (response.status === 401) {
