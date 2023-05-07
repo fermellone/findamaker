@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
+	import { logAnalyticsEvent } from '$lib/analytics';
 	import { analyticsEvents } from '$lib/analytics-events';
-	import { logAnalyticsEvent, signInWithGoogle } from '$lib/firebase';
+	import { signInWithGoogle } from '$lib/firebase';
 
 	const handleSignin = async () => {
 		const response = await signInWithGoogle();

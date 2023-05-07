@@ -7,8 +7,8 @@
 	import type { UpVote } from '../../models/up-vote';
 	import Modal from '$lib/components/Modal.svelte';
 	import { goto } from '$app/navigation';
-	import { logAnalyticsEvent } from '$lib/firebase';
 	import { analyticsEvents } from '$lib/analytics-events';
+	import { logAnalyticsEvent } from '$lib/analytics';
 
 	let isProblemDetailsModalOpen = false;
 

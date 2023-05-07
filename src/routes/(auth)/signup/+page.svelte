@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { logAnalyticsEvent, signInWithGoogle } from '$lib/firebase';
+	import { signInWithGoogle } from '$lib/firebase';
 	import { redirect } from '@sveltejs/kit';
 	import { analyticsEvents } from '$lib/analytics-events';
+	import { logAnalyticsEvent } from '$lib/analytics';
 
 	let username = '';
 

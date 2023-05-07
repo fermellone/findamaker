@@ -3,13 +3,7 @@ export const ssr = false;
 import { PUBLIC_FIREBASE_CONFIG } from '$env/static/public';
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import {
-	getAnalytics,
-	initializeAnalytics,
-	logEvent,
-	setConsent,
-	type AnalyticsSettings
-} from 'firebase/analytics';
+import { getAnalytics, initializeAnalytics, logEvent } from 'firebase/analytics';
 const firebaseConfig = JSON.parse(PUBLIC_FIREBASE_CONFIG);
 
 const app = initializeApp(firebaseConfig);
@@ -23,6 +17,9 @@ export const signInWithGoogle = () => {
 	return signInWithPopup(authDataSource, provider);
 };
 
-export const logAnalyticsEvent = (eventName: string, eventParams?: Record<string, unknown>) => {
+export const logGoogleAnalyticsEvent = (
+	eventName: string,
+	eventParams?: Record<string, unknown>
+) => {
 	logEvent(analyticsDataSource, eventName, eventParams);
 };
