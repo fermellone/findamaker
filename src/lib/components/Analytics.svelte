@@ -19,10 +19,6 @@
 </script>
 
 <svelte:head>
-	<!-- Google Analytics -->
-	<!-- Google Analytics -->
-	<!-- Google Analytics -->
-	<!-- Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id={meassurementId}">
 	</script>
 	<script>
@@ -36,10 +32,6 @@
 		gtag('config', 'G-DJ2HTPTK1Z');
 	</script>
 
-	<!-- Google Tag Manager -->
-	<!-- Google Tag Manager -->
-	<!-- Google Tag Manager -->
-	<!-- Google Tag Manager -->
 	<script>
 		(function (w, d, s, l, i) {
 			w[l] = w[l] || [];
@@ -52,7 +44,6 @@
 			f.parentNode.insertBefore(j, f);
 		})(window, document, 'script', 'dataLayer', 'GTM-MC6KZNK');
 	</script>
-	<!-- End Google Tag Manager -->
 </svelte:head>
 
 <!-- Google Tag Manager (noscript) -->
