@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
-	import { signInWithGoogle } from '$lib/firebase';
+	import { logAnalyticsEvent, signInWithGoogle } from '$lib/firebase';
 	import { redirect } from '@sveltejs/kit';
+	import { analyticsEvents } from '$lib/analytics-events';
 
 	let username = '';
 
@@ -29,13 +30,24 @@
 					})
 				});
 				if (resp.ok) {
+					logAnalyticsEvent(analyticsEvents.SIGNUP_SUCCESSFULLY, {
+						email: firebaseUser.email
+					});
 					const user = await resp.json();
 					localStorage.setItem('user', JSON.stringify(user));
 					goto('/');
 				} else if (resp.status === 403) {
 					alert('You are already registered!');
+					logAnalyticsEvent(analyticsEvents.SIGNIN_FAILED, {
+						email: firebaseUser.email,
+						errorMessage: 'User already registered'
+					});
 					goto('/signin');
 				} else {
+					logAnalyticsEvent(analyticsEvents.SIGNIN_FAILED, {
+						email: firebaseUser.email,
+						errorMessage: resp.statusText
+					});
 					throw new Error(resp.statusText);
 				}
 			}

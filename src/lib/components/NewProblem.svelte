@@ -8,20 +8,16 @@
 	export let onSubmitCallback: (problemDescription: string) => Promise<void>;
 
 	const handleShareNewProblem = async (event: Event) => {
-		if ($userState) {
-			isSubmitting = true;
-			const form = event.target as HTMLFormElement;
-			const formData = new FormData(form);
+		isSubmitting = true;
+		const form = event.target as HTMLFormElement;
+		const formData = new FormData(form);
 
-			const description = formData.get('description') as string;
+		const description = formData.get('description') as string;
 
-			await onSubmitCallback(description);
+		await onSubmitCallback(description);
 
-			form.reset();
-			isSubmitting = false;
-		} else {
-			goto('/signin');
-		}
+		form.reset();
+		isSubmitting = false;
 	};
 </script>
 

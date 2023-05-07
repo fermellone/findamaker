@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { signInWithGoogle } from '$lib/firebase';
+	import { analyticsEvents } from '$lib/analytics-events';
+	import { logAnalyticsEvent, signInWithGoogle } from '$lib/firebase';
 
 	const handleSignin = async () => {
 		const response = await signInWithGoogle();
@@ -9,6 +10,7 @@
 		if (response.user) {
 			const userResp = await fetch(`/api/users/${response.user.uid}`);
 			if (userResp.ok) {
+				logAnalyticsEvent(analyticsEvents.SIGNIN_SUCCESSFULLY);
 				const user = await userResp.json();
 
 				localStorage.setItem('user', JSON.stringify(user));
@@ -17,8 +19,18 @@
 
 				goto(nextpage ?? '/');
 			} else if (userResp.status === 404) {
+				logAnalyticsEvent(analyticsEvents.SIGNIN_FAILED, {
+					email: response.user.email,
+					errorMessage: 'user tried to signin before signup'
+				});
 				alert("This account doesn't exist. Please sign up first.");
 				goto('/signup');
+			} else {
+				logAnalyticsEvent(analyticsEvents.SIGNIN_FAILED, {
+					email: response.user.email,
+					errorMessage: userResp.statusText
+				});
+				throw new Error(userResp.statusText);
 			}
 		}
 	};
