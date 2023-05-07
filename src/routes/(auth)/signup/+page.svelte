@@ -1,6 +1,8 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { signInWithGoogle } from '$lib/firebase';
+	import { redirect } from '@sveltejs/kit';
 
 	let username = '';
 
@@ -11,7 +13,7 @@
 				localStorage.getItem('user') &&
 				JSON.parse(localStorage.getItem('user')!).id === firebaseUser.uid
 			) {
-				goto('/');
+				redirect(302, '/');
 			} else {
 				const resp = await fetch('/api/users', {
 					method: 'POST',
@@ -147,6 +149,12 @@
 						>
 						<span class="text-sm font-semibold leading-6">Google</span>
 					</button>
+
+					<a
+						href="/signin{$page.url.searchParams.get('next') ?? ''}"
+						class="text-blue-400 text-center"
+						>Or <span class="font-bold">Sign in</span> if you already have an account.</a
+					>
 				</div>
 			</div>
 		</div>

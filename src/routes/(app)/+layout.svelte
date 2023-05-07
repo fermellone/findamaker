@@ -31,12 +31,12 @@
 							await authDataSource.signOut();
 							userState.set(null);
 							localStorage.removeItem('user');
-							goto('/signin');
+							// goto('/signin');
 						}
 					} else {
 						userState.set(null);
 						localStorage.removeItem('user');
-						goto('/signin');
+						// goto('/signin');
 					}
 				} catch (error) {
 					console.log(error);
@@ -55,58 +55,58 @@
 <svelte:head>
 	<title>{$pageTitle}</title>
 </svelte:head>
-{#if !$userState}
-	Loading...
-{:else}
-	<div class="min-h-full">
-		<nav class="border-b border-gray-200 bg-white">
-			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-				<div class="flex h-16 justify-between">
-					<div class="flex">
-						<div class="flex flex-shrink-0 items-center">
-							<img
-								class="block h-8 w-auto lg:hidden"
-								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-								alt="Your Company"
-							/>
-							<img
-								class="hidden h-8 w-auto lg:block"
-								src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-								alt="Your Company"
-							/>
-						</div>
-						<div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
-							<a
-								href="/"
-								class="{$page.url.pathname === '/'
-									? 'current'
-									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								aria-current="page">Problems over the world</a
-							>
-							<a
-								href="/mine"
-								class="{$page.url.pathname === '/mine'
-									? 'current'
-									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								>Problems that you're following</a
-							>
-							<a
-								href="/being-solved"
-								class="{$page.url.pathname === '/being-solved'
-									? 'current'
-									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								>Problems that are being solved</a
-							>
-							<a
-								href="/solving"
-								class="{$page.url.pathname === '/solving'
-									? 'current'
-									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-								>Problems you're solving</a
-							>
-						</div>
+
+<div class="min-h-full">
+	<nav class="border-b border-gray-200 bg-white">
+		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			<div class="flex h-16 justify-between">
+				<div class="flex">
+					<div class="flex flex-shrink-0 items-center">
+						<img
+							class="block h-8 w-auto lg:hidden"
+							src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+							alt="Your Company"
+						/>
+						<img
+							class="hidden h-8 w-auto lg:block"
+							src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+							alt="Your Company"
+						/>
 					</div>
-					<div class="hidden sm:ml-6 sm:flex sm:items-center">
+					<div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+						<a
+							href="/"
+							class="{$page.url.pathname === '/'
+								? 'current'
+								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							aria-current="page">Problems over the world</a
+						>
+						<a
+							href="/mine"
+							class="{$page.url.pathname === '/mine'
+								? 'current'
+								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							>Problems that you're following</a
+						>
+						<a
+							href="/being-solved"
+							class="{$page.url.pathname === '/being-solved'
+								? 'current'
+								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							>Problems that are being solved</a
+						>
+						<a
+							href="/solving"
+							class="{$page.url.pathname === '/solving'
+								? 'current'
+								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							>Problems you're solving</a
+						>
+					</div>
+				</div>
+				<div class="hidden sm:ml-6 sm:flex sm:items-center">
+					{#if $userState}
+						<!-- content here -->
 						<button
 							type="button"
 							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -125,91 +125,118 @@
 									aria-expanded="false"
 									aria-haspopup="true"
 								>
-									<img class="h-8 w-8 rounded-full" src={$userState.profilePicture} alt="" />
+									<img
+										class="h-8 w-8 rounded-full"
+										referrerpolicy="no-referrer"
+										src={$userState.profilePicture}
+										alt=""
+									/>
 								</button>
 							</div>
 						</div>
-					</div>
-					<div class="-mr-2 flex items-center sm:hidden">
-						<!-- Mobile menu button -->
+					{:else}
 						<button
-							on:click={() => {
-								isMenuOpen = !isMenuOpen;
-							}}
 							type="button"
-							class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-							aria-controls="mobile-menu"
-							aria-expanded="false"
+							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							on:click={() => goto('/signin')}
 						>
-							<span class="sr-only">Open main menu</span>
-							<!-- Menu open: "hidden", Menu closed: "block" -->
-							<svg
-								class="block h-6 w-6"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								aria-hidden="true"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-								/>
-							</svg>
-							<!-- Menu open: "block", Menu closed: "hidden" -->
-							<svg
-								class="hidden h-6 w-6"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke-width="1.5"
-								stroke="currentColor"
-								aria-hidden="true"
-							>
-								<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-							</svg>
+							Sign in
 						</button>
-					</div>
+						<button
+							type="button"
+							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							on:click={() => goto('/signup')}
+						>
+							Sign up
+						</button>
+					{/if}
+				</div>
+				<div class="-mr-2 flex items-center sm:hidden">
+					<!-- Mobile menu button -->
+					<button
+						on:click={() => {
+							isMenuOpen = !isMenuOpen;
+						}}
+						type="button"
+						class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+						aria-controls="mobile-menu"
+						aria-expanded="false"
+					>
+						<span class="sr-only">Open main menu</span>
+						<!-- Menu open: "hidden", Menu closed: "block" -->
+						<svg
+							class="block h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+							/>
+						</svg>
+						<!-- Menu open: "block", Menu closed: "hidden" -->
+						<svg
+							class="hidden h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							aria-hidden="true"
+						>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+						</svg>
+					</button>
 				</div>
 			</div>
+		</div>
 
-			<!-- Mobile menu, show/hide based on menu state. -->
-			{#if isMenuOpen}
-				<div class="sm:hidden" id="mobile-menu" transition:slide>
-					<div class="space-y-1 pb-3 pt-2">
-						<a
-							href="/"
-							class="{$page.url.pathname === '/'
-								? 'current'
-								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-							aria-current="page">Problems over the world</a
-						>
-						<a
-							href="/mine"
-							class="{$page.url.pathname === '/mine'
-								? 'current'
-								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-							>Your problems</a
-						>
-						<a
-							href="/being-solved"
-							class="{$page.url.pathname === '/being-solved'
-								? 'current'
-								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-							>Problems that are being solved</a
-						>
-						<a
-							href="/solving"
-							class="{$page.url.pathname === '/solving'
-								? 'current'
-								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-							>Problems you're solving</a
-						>
-					</div>
-					<div class="border-t border-gray-200 pb-3 pt-4">
-						<div class="flex items-center px-4">
+		<!-- Mobile menu, show/hide based on menu state. -->
+		{#if isMenuOpen}
+			<div class="sm:hidden" id="mobile-menu" transition:slide>
+				<div class="space-y-1 pb-3 pt-2">
+					<a
+						href="/"
+						class="{$page.url.pathname === '/'
+							? 'current'
+							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+						aria-current="page">Problems over the world</a
+					>
+					<a
+						href="/mine"
+						class="{$page.url.pathname === '/mine'
+							? 'current'
+							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+						>Your problems</a
+					>
+					<a
+						href="/being-solved"
+						class="{$page.url.pathname === '/being-solved'
+							? 'current'
+							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+						>Problems that are being solved</a
+					>
+					<a
+						href="/solving"
+						class="{$page.url.pathname === '/solving'
+							? 'current'
+							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+						>Problems you're solving</a
+					>
+				</div>
+				<div class="border-t border-gray-200 pb-3 pt-4">
+					<div class="flex items-center px-4">
+						{#if $userState}
 							<div class="flex-shrink-0">
-								<img class="h-10 w-10 rounded-full" src={$userState.profilePicture} alt="" />
+								<img
+									class="h-10 w-10 rounded-full"
+									referrerpolicy="no-referrer"
+									src={$userState.profilePicture}
+									alt=""
+								/>
 							</div>
 							<div class="ml-3">
 								<div class="text-base font-medium text-gray-800">{$userState.name}</div>
@@ -222,28 +249,48 @@
 							>
 								Sign out
 							</button>
-						</div>
+						{:else}
+							<button
+								on:click={() => {
+									goto('/signin');
+								}}
+								type="button"
+								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							>
+								Sign in
+							</button>
+							<button
+								on:click={() => {
+									goto('/signup');
+								}}
+								type="button"
+								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							>
+								Sign in
+							</button>
+						{/if}
 					</div>
 				</div>
-			{/if}
-		</nav>
+				<!-- else content here -->
+			</div>
+		{/if}
+	</nav>
 
-		<div class="py-10">
-			<header>
-				<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-					<h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">
-						{$pageTitle}
-					</h1>
-				</div>
-			</header>
-			<main>
-				<div class="mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-2">
-					<slot />
-				</div>
-			</main>
-		</div>
+	<div class="py-10">
+		<header>
+			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+				<h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+					{$pageTitle}
+				</h1>
+			</div>
+		</header>
+		<main>
+			<div class="mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-2">
+				<slot />
+			</div>
+		</main>
 	</div>
-{/if}
+</div>
 
 <style lang="postcss">
 	.desktop.current {

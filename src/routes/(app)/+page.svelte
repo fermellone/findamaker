@@ -6,6 +6,7 @@
 	import type { Problem } from '../../models/problem';
 	import type { UpVote } from '../../models/up-vote';
 	import Modal from '$lib/components/Modal.svelte';
+	import { goto } from '$app/navigation';
 
 	let isProblemDetailsModalOpen = false;
 
@@ -74,6 +75,10 @@
 	};
 
 	const toggleUpVote = async (event: CustomEvent): Promise<void> => {
+		if (!$userState) {
+			goto('/signin');
+		}
+
 		const { problemId } = event.detail;
 
 		const problemIndex = problems.findIndex((problem) => problem.id === problemId);

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { signInWithGoogle } from '$lib/firebase';
 
 	const handleSignin = async () => {
@@ -12,7 +13,9 @@
 
 				localStorage.setItem('user', JSON.stringify(user));
 
-				goto('/');
+				const nextpage = $page.url.searchParams.get('next');
+
+				goto(nextpage ?? '/');
 			} else if (userResp.status === 404) {
 				alert("This account doesn't exist. Please sign up first.");
 				goto('/signup');
@@ -103,6 +106,12 @@
 						>
 						<span class="text-sm font-semibold leading-6">Google</span>
 					</button>
+
+					<a
+						href="/signup{$page.url.searchParams.get('next') ?? ''}"
+						class="text-blue-400 text-center"
+						>Or <span class="font-bold">Sign up</span> if you don't have an account yet.</a
+					>
 				</div>
 			</div>
 		</div>

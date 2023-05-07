@@ -11,6 +11,10 @@
 	$: problem = data.problem;
 
 	const handleSubmit = async (event: Event) => {
+		if (!$userState) {
+			goto(`/signin?next=/problems/${problem!.id}/solve`);
+		}
+
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const data = Object.fromEntries(formData.entries());

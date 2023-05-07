@@ -46,6 +46,7 @@
 					<div class="flex items-center">
 						<img
 							class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
+							referrerpolicy="no-referrer"
 							src={problem.author.profilePicture}
 							alt={problem.author.name}
 						/>
@@ -71,6 +72,7 @@
 					{#each problem.upVotes.slice(0, 3) as upvote}
 						<dd>
 							<img
+								referrerpolicy="no-referrer"
 								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white mb-2"
 								src={upvote.user?.profilePicture}
 								alt={upvote.user?.name}

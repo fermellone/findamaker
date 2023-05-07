@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
+	import { userState } from '$lib/store';
 	import Loading from './Loading.svelte';
 
 	let isSubmitting = false;
@@ -6,16 +8,20 @@
 	export let onSubmitCallback: (problemDescription: string) => Promise<void>;
 
 	const handleShareNewProblem = async (event: Event) => {
-		isSubmitting = true;
-		const form = event.target as HTMLFormElement;
-		const formData = new FormData(form);
+		if ($userState) {
+			isSubmitting = true;
+			const form = event.target as HTMLFormElement;
+			const formData = new FormData(form);
 
-		const description = formData.get('description') as string;
+			const description = formData.get('description') as string;
 
-		await onSubmitCallback(description);
+			await onSubmitCallback(description);
 
-		form.reset();
-		isSubmitting = false;
+			form.reset();
+			isSubmitting = false;
+		} else {
+			goto('/signin');
+		}
 	};
 </script>
 
