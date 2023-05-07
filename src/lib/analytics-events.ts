@@ -1,7 +1,7 @@
 export const analyticsEvents = {
-	SIGNIN_SUCCESSFULLY: 'signin',
-	SIGNUP_SUCCESSFULLY: 'signup',
-	SIGNOUT_SUCCESSFULLY: 'signout',
+	SIGNIN_SUCCESSFULLY: 'login',
+	SIGNUP_SUCCESSFULLY: 'sign_up',
+	SIGNOUT_SUCCESSFULLY: 'sign_out',
 	SIGNIN_FAILED: 'signin_failed',
 	SIGNUP_FAILED: 'signup_failed',
 	SIGNOUT_FAILED: 'signout_failed',
