@@ -24,6 +24,6 @@
 		}
 
 		gtag('js', new Date());
-		gtag('config', meassurementId);
+		gtag('config', 'G-1MYLNDXZ07');
 	</script>
 </svelte:head>
