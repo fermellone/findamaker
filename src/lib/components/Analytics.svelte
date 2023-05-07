@@ -49,14 +49,4 @@
 	<!-- End Google Tag Manager -->
 </svelte:head>
 
-<!-- Google Tag Manager (noscript) -->
-<noscript
-	><iframe
-		title="Google Tag Manager"
-		src="https://www.googletagmanager.com/ns.html?id=GTM-MC6KZNK"
-		height="0"
-		width="0"
-		style="display:none;visibility:hidden"
-	/></noscript
->
-<!-- End Google Tag Manager (noscript) -->
+
