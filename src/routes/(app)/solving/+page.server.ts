@@ -1,7 +1,7 @@
 import prisma from '$lib/prisma';
-import type { PageLoad } from './$types';
+import type { PageServerLoad } from './$types';
 
-export const load: PageLoad = async () => {
+export const load: PageServerLoad = async () => {
 	const solutions = await prisma.solution.findMany({
 		include: {
 			problem: true
