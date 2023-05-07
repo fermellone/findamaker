@@ -7,5 +7,6 @@ export const analyticsEvents = {
 	SIGNOUT_FAILED: 'signout_failed',
 	UPVOTE_WITHOUT_SIGNIN: 'upvote_without_signin',
 	CREATE_PROBLEM_WITHOUT_SIGNIN: 'create_problem_without_signin',
-	CLICK_ON_PROBLEM_DETAILS: 'click_on_problem_details'
+	CLICK_ON_PROBLEM_DETAILS: 'click_on_problem_details',
+	GOTO_SOLVE_PROBLEM: 'goto_solve_problem'
 };
