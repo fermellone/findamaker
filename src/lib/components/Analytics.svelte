@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 
-	const meassurementId = 'G-1MYLNDXZ07';
+	const meassurementId = 'G-DJ2HTPTK1Z';
 
 	$: {
 		if (typeof gtag !== 'undefined') {
@@ -24,6 +24,6 @@
 		}
 
 		gtag('js', new Date());
-		gtag('config', 'G-1MYLNDXZ07');
+		gtag('config', 'G-DJ2HTPTK1Z');
 	</script>
 </svelte:head>
