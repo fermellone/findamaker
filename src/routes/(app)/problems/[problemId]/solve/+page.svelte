@@ -22,7 +22,7 @@
 		await fetch(`/api/problems/${problem!.id}/solutions`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({ ...data, authorId: $userState!.id })
+			body: JSON.stringify({ ...data, authorId: $userState!.id, link: `https://${linkInput}` })
 		});
 		goto(`/`);
 	};
