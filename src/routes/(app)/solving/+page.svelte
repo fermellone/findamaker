@@ -1,12 +1,24 @@
 <script lang="ts">
-	import { pageTitle } from '$lib/store';
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { pageTitle, userState } from '$lib/store';
+	import { onMount } from 'svelte';
+	import type { Solution } from '../../../models/solution';
 
 	pageTitle.set("Problems you're solving");
 
-	$: solutions = data.solutions;
+	let solutions: Solution[] = [];
+
+	onMount(async () => {
+		const response = await fetch(
+			`/api/solutions?userId=${
+				$userState?.id ?? JSON.parse(localStorage.getItem('user') ?? '{}').id ?? ''
+			}`
+		);
+
+		if (!response.ok)
+			throw new Error('Failed to fetch solutions. Please reload the page or try again later.');
+
+		solutions = await response.json();
+	});
 </script>
 
 <main>
