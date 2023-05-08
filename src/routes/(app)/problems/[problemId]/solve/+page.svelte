@@ -11,6 +11,7 @@
 	$: problem = data.problem;
 
 	const handleSubmit = async (event: Event) => {
+		console.log('saving', $userState);
 		if (!$userState) {
 			goto(`/signin?next=/problems/${problem!.id}/solve`);
 		}
@@ -23,6 +24,7 @@
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ ...data, authorId: $userState!.id })
 		});
+		goto(`/`);
 	};
 
 	$: isLinkInvalid =
@@ -51,17 +53,28 @@
 						<div class="mt-2">
 							<div class="w-full sm:w-1/2">
 								<div class="relative mt-2 rounded-md shadow-sm">
-									<input
-										type="link"
-										name="link"
-										id="link"
-										class="block w-full rounded-md border-0 py-1.5 pr-10 pl-2 {isLinkInvalid
-											? 'text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500'
-											: 'text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'} sm:text-sm sm:leading-6"
-										bind:value={linkInput}
-										aria-invalid="true"
-										aria-describedby="link-error"
-									/>
+									<div>
+										<div class="mt-2 flex rounded-sm shadow-sm">
+											<span
+												class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm"
+												>https://</span
+											>
+											<input
+												type="text"
+												name="link"
+												id="link"
+												bind:value={linkInput}
+												autocomplete="off"
+												class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 {isLinkInvalid
+													? 'text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500'
+													: 'text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600'}"
+												aria-invalid="true"
+												aria-describedby="link-error"
+												required
+											/>
+										</div>
+									</div>
+
 									{#if isLinkInvalid}
 										<div
 											class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
@@ -92,7 +105,7 @@
 								>Description</label
 							>
 							<span class="text-sm text-gray-400"
-								>Explain a little about how you think this can solve the problem.</span
+								>Explain a little how you think this can solve the problem.</span
 							>
 							<div class="mt-2">
 								<textarea

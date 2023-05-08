@@ -21,10 +21,12 @@
 	};
 </script>
 
-<div class="bg-white shadow sm:rounded-lg">
+<div class="dark:bg-gray-900 bg-white shadow sm:rounded-lg">
 	<div class="px-4 py-5 sm:p-6">
-		<h3 class="text-base font-semibold leading-6 text-gray-900">Tell us your problem</h3>
-		<div class="mt-2 max-w-xl text-sm text-gray-500">
+		<h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+			Tell us your problem
+		</h3>
+		<div class="mt-2 max-w-xl text-sm dark:text-gray-400 text-gray-500">
 			<p>You can explain us a little or with details. As you wish!</p>
 			<p>It could be whatever you think can be solved with software</p>
 			<p>

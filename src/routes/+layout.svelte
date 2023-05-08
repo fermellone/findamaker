@@ -5,4 +5,6 @@
 
 <Analytics />
 
-<slot />
+<div class="dark:bg-gray-900 dark:text-white">
+	<slot />
+</div>

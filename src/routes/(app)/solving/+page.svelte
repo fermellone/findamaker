@@ -9,5 +9,16 @@
 	$: solutions = data.solutions;
 </script>
 
-<h1>Solving</h1>
-<pre>{JSON.stringify(solutions)}</pre>
+<main>
+	{#if solutions.length === 0}
+		<p>You haven't added any solutions yet.</p>
+	{:else}
+		<ul>
+			{#each solutions as solution}
+				<li>
+					<a href={solution.link}>{solution.description}</a>
+				</li>
+			{/each}
+		</ul>
+	{/if}
+</main>

@@ -57,7 +57,7 @@
 </svelte:head>
 
 <div class="min-h-full">
-	<nav class="border-b border-gray-200 bg-white">
+	<nav class="border-b border-gray-200 bg-white dark:bg-gray-900 dark:text-white">
 		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 			<div class="flex h-16 justify-between">
 				<div class="flex">
@@ -109,7 +109,8 @@
 						<!-- content here -->
 						<button
 							type="button"
-							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500
+							focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-400 dark:focus:ring-0"
 							on:click={handleLogout}
 						>
 							Sign out
@@ -120,7 +121,7 @@
 							<div>
 								<button
 									type="button"
-									class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+									class="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-gray-900 dark:focus:ring-0"
 									id="user-menu-button"
 									aria-expanded="false"
 									aria-haspopup="true"
@@ -135,20 +136,22 @@
 							</div>
 						</div>
 					{:else}
-						<button
-							type="button"
-							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-							on:click={() => goto('/signin')}
-						>
-							Sign in
-						</button>
-						<button
-							type="button"
-							class="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-							on:click={() => goto('/signup')}
-						>
-							Sign up
-						</button>
+						<div class="flex flex-nowrap gap-x-2 w-full">
+							<button
+								type="button"
+								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:hover:ring-1 hover:ring-indigo-500 dark:hover:ring-indigo-700 hover:ring-offset-2 dark:hover:ring-offset-0"
+								on:click={() => goto('/signin')}
+							>
+								Sign in
+							</button>
+							<button
+								type="button"
+								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:hover:ring-1 hover:ring-indigo-500 dark:hover:ring-indigo-700 hover:ring-offset-2 dark:hover:ring-offset-0"
+								on:click={() => goto('/signup')}
+							>
+								Sign up
+							</button>
+						</div>
 					{/if}
 				</div>
 				<div class="-mr-2 flex items-center sm:hidden">
@@ -266,7 +269,7 @@
 								type="button"
 								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 							>
-								Sign in
+								Sign up
 							</button>
 						{/if}
 					</div>
@@ -294,18 +297,18 @@
 
 <style lang="postcss">
 	.desktop.current {
-		@apply border-indigo-500 text-indigo-700;
+		@apply border-indigo-500 text-indigo-700 dark:text-white;
 	}
 
 	.desktop.default {
-		@apply border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700;
+		@apply border-transparent text-gray-500 hover:border-gray-300 dark:text-gray-200 dark:hover:text-gray-400;
 	}
 
 	.mobile.current {
-		@apply border-indigo-500 bg-indigo-50 text-indigo-700;
+		@apply border-indigo-500 dark:border-none dark:bg-indigo-50 text-indigo-700 dark:text-white;
 	}
 
 	.mobile.default {
-		@apply border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800;
+		@apply border-transparent dark:text-gray-400 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800 dark:hover:border-none dark:hover:bg-transparent dark:hover:text-gray-400;
 	}
 </style>

@@ -31,7 +31,7 @@
 		on:click|self={() => {
 			handleClose();
 		}}
-		class="bg-white rounded-lg shadow-xl w-full max-w-2xl mx-auto p-4 md:p-8 text-left relative text-black"
+		class="bg-white dark:bg-gray-900 rounded-lg shadow-xl w-full max-w-2xl mx-auto p-4 md:p-8 text-left relative text-black dark:text-white"
 	>
 		{#if title}
 			<h1 class="text-lg font-bold">{title}</h1>
@@ -47,12 +47,14 @@
 			}}
 		>
 			<div
-				class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+				class="text-gray-400 dark:text-white bg-transparent hover:bg-gray-200 dark:hover:bg-transparent dark:hover:ring-1 dark:hover:ring-red-700 hover:text-gray-900 rounded-lg text-sm px-2 py-1.5 ml-auto inline-flex items-center"
 			>
 				❌
 			</div>
 		</button>
-		<slot />
+		<div class="px-2">
+			<slot />
+		</div>
 		{#if onSubmitCallback}
 			<button
 				type="submit"
