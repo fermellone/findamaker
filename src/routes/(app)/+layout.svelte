@@ -228,7 +228,9 @@
 								/>
 							</div>
 							<div class="ml-3">
-								<div class="text-base font-medium text-gray-800">{$userState.name}</div>
+								<div class="text-base font-medium text-gray-800 dark:text-white">
+									{$userState.name}
+								</div>
 								<div class="text-sm font-medium text-gray-500">{$userState.email}</div>
 							</div>
 							<button
