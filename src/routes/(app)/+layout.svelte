@@ -136,17 +136,17 @@
 							</div>
 						</div>
 					{:else}
-						<div class="flex flex-nowrap gap-x-2 w-full">
+						<div class="flex flex-nowrap gap-x-4 w-full">
 							<button
 								type="button"
-								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:hover:ring-1 hover:ring-indigo-500 dark:hover:ring-indigo-700 hover:ring-offset-2 dark:hover:ring-offset-0"
+								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:ring-1 hover:ring-green-500 dark:ring-green-700 hover:ring-offset-2 dark:hover:ring-offset-0 px-2"
 								on:click={() => goto('/signin')}
 							>
 								Sign in
 							</button>
 							<button
 								type="button"
-								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:hover:ring-1 hover:ring-indigo-500 dark:hover:ring-indigo-700 hover:ring-offset-2 dark:hover:ring-offset-0"
+								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:ring-1 ring-indigo-500 dark:ring-indigo-700 hover:ring-offset-2 dark:hover:ring-offset-0 px-2"
 								on:click={() => goto('/signup')}
 							>
 								Sign up
@@ -161,7 +161,7 @@
 							isMenuOpen = !isMenuOpen;
 						}}
 						type="button"
-						class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+						class="inline-flex items-center justify-center rounded-md bg-white dark:bg-transparent p-2 text-gray-400 dark:text-white hover:bg-gray-100 hover:text-gray-500 dark:hover:bg-transparent dark:hover:text-gray-200 focus:outline-none focus:ring-2 dark:focus:ring-0 focus:ring-indigo-500 focus:ring-offset-2"
 						aria-controls="mobile-menu"
 						aria-expanded="false"
 					>
@@ -253,7 +253,23 @@
 								Sign out
 							</button>
 						{:else}
-							<button
+							<div class="flex flex-nowrap gap-x-4">
+								<button
+									type="button"
+									class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:ring-1 hover:ring-indigo-500 dark:ring-green-700 hover:ring-offset-2 dark:ring-offset-0 px-2"
+									on:click={() => goto('/signin')}
+								>
+									Sign in
+								</button>
+								<button
+									type="button"
+									class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:ring-1 hover:ring-indigo-500 dark:ring-indigo-700 hover:ring-offset-2 dark:ring-offset-0 px-2"
+									on:click={() => goto('/signup')}
+								>
+									Sign up
+								</button>
+							</div>
+							<!-- <button
 								on:click={() => {
 									goto('/signin');
 								}}
@@ -270,7 +286,7 @@
 								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 							>
 								Sign up
-							</button>
+							</button> -->
 						{/if}
 					</div>
 				</div>
@@ -305,7 +321,7 @@
 	}
 
 	.mobile.current {
-		@apply border-indigo-500 dark:border-none dark:bg-indigo-50 text-indigo-700 dark:text-white;
+		@apply border-indigo-500 dark:border-b dark:border-l-0 dark:border-indigo-700 dark:bg-transparent bg-indigo-50 text-indigo-700 dark:text-white;
 	}
 
 	.mobile.default {
