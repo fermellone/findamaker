@@ -27,9 +27,9 @@
 		goto(`/`);
 	};
 
-	$: isLinkInvalid =
-		!linkInput.match(/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/) &&
-		linkInput !== '';
+	// $: isLinkInvalid =
+	// 	!linkInput.match(/([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/) &&
+	// 	linkInput !== '';
 </script>
 
 <div class="px-4 sm:px-0">
@@ -59,7 +59,9 @@
 												class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm"
 												>https://</span
 											>
-											<input
+											<!-- TODO add the validation if there are problems -->
+
+											<!-- <input
 												type="text"
 												name="link"
 												id="link"
@@ -71,11 +73,23 @@
 												aria-invalid="true"
 												aria-describedby="link-error"
 												required
+											/> -->
+											<input
+												type="text"
+												name="link"
+												id="link"
+												bind:value={linkInput}
+												autocomplete="off"
+												class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-0 py-1.5 focus:ring-indigo-600 sm:text-sm sm:leading-6 text-red-900 ring-1 ring-inset ring-red-300 placeholder:text-red-300 focus:ring-2 focus:ring-inset focus:ring-red-500'
+													"
+												aria-invalid="true"
+												aria-describedby="link-error"
+												required
 											/>
 										</div>
 									</div>
 
-									{#if isLinkInvalid}
+									<!-- {#if isLinkInvalid}
 										<div
 											class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"
 										>
@@ -92,11 +106,11 @@
 												/>
 											</svg>
 										</div>
-									{/if}
+									{/if} -->
 								</div>
-								{#if isLinkInvalid}
+								<!-- {#if isLinkInvalid}
 									<p class="mt-2 text-sm text-red-600" id="link-error">Not a valid URL.</p>
-								{/if}
+								{/if} -->
 							</div>
 						</div>
 
