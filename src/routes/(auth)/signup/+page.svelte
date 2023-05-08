@@ -61,19 +61,23 @@
 
 <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+		<div class="bg-white dark:bg-transparent px-6 py-12 shadow sm:rounded-lg sm:px-12">
 			<div>
 				<div class="grid grid-cols-1 gap-4">
-					<h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+					<h2
+						class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white"
+					>
 						Sign up
 					</h2>
 					<div>
-						<label for="username" class="block text-sm font-medium leading-6 text-gray-900"
+						<label
+							for="username"
+							class="block text-sm font-medium leading-6 text-gray-900 hover:text-white"
 							>Select a username</label
 						>
 						<div class="mt-2 flex rounded-sm shadow-sm">
 							<span
-								class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm"
+								class="inline-flex items-center rounded-l-md border dark:border-indigo-700 border-r-0 border-gray-300 px-3 text-gray-500 sm:text-sm"
 								>@</span
 							>
 							<input

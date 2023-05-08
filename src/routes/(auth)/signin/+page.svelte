@@ -39,10 +39,12 @@
 
 <div class="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
 	<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-		<div class="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
+		<div class="bg-white dark:bg-transparent px-6 py-12 shadow sm:rounded-lg sm:px-12">
 			<div>
 				<div class="grid grid-cols-1 gap-4">
-					<h2 class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+					<h2
+						class="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white"
+					>
 						Sign in to your account
 					</h2>
 					<button
@@ -51,7 +53,7 @@
 					>
 						<svg
 							class="h-5 2-5"
-							id="Слой_1"
+							id="Layer_1"
 							xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink"
 							viewBox="-380.2 274.7 65.7 65.8"

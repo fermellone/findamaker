@@ -234,7 +234,7 @@
 							<button
 								on:click={handleLogout}
 								type="button"
-								class="ml-auto flex-shrink-0 rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+								class="rounded-md bg-white dark:bg-transparent p-1 text-gray-400 dark:text-white hover:text-gray-500 dark:hover:text-gray-200 hover:outline-none hover:ring-2 dark:ring-1 ring-red-500 dark:ring-red-700 hover:ring-offset-2 dark:hover:ring-offset-0 px-2 ml-auto"
 							>
 								Sign out
 							</button>
