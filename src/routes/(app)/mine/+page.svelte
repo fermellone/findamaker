@@ -4,6 +4,4 @@
 	pageTitle.set('Your problems');
 </script>
 
-<h1>Following</h1>
-
-<h1>Mine</h1>
+<h1>Problems you shared</h1>

@@ -86,7 +86,7 @@
 							class="{$page.url.pathname === '/mine'
 								? 'current'
 								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-							>Problems that you're following</a
+							>Problems you shared</a
 						>
 						<a
 							href="/solving"
@@ -206,7 +206,7 @@
 						class="{$page.url.pathname === '/mine'
 							? 'current'
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Your problems</a
+						>Problems you shared</a
 					>
 					<a
 						href="/solving"
