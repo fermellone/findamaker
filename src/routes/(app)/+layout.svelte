@@ -89,13 +89,6 @@
 							>Problems that you're following</a
 						>
 						<a
-							href="/being-solved"
-							class="{$page.url.pathname === '/being-solved'
-								? 'current'
-								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-							>Problems that are being solved</a
-						>
-						<a
 							href="/solving"
 							class="{$page.url.pathname === '/solving'
 								? 'current'
@@ -214,13 +207,6 @@
 							? 'current'
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
 						>Your problems</a
-					>
-					<a
-						href="/being-solved"
-						class="{$page.url.pathname === '/being-solved'
-							? 'current'
-							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Problems that are being solved</a
 					>
 					<a
 						href="/solving"
