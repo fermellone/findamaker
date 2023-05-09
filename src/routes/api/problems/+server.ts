@@ -23,7 +23,7 @@ export const POST: RequestHandler = async ({ request }) => {
 				connect: {
 					id: data.authorId
 				}
-			},
+			}
 		},
 		include: {
 			author: true,
@@ -33,4 +33,18 @@ export const POST: RequestHandler = async ({ request }) => {
 	});
 
 	return new Response(JSON.stringify(newProblem), { status: 201 });
+};
+
+export const GET: RequestHandler = async ({ url }) => {
+	const authorId = url.searchParams.get('authorId');
+
+	if (!authorId) return new Response('AuthorId not found', { status: 400 });
+
+	const problems = await prisma.problem.findMany({
+		where: {
+			authorId: authorId
+		}
+	});
+
+	return new Response(JSON.stringify(problems), { status: 200 });
 };
