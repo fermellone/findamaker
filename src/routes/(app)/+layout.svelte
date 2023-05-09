@@ -81,6 +81,13 @@
 								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
 							aria-current="page">Problems over the world</a
 						>
+						<a
+							href="/solutions"
+							class="{$page.url.pathname === '/solutions'
+								? 'current'
+								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							aria-current="page">Solutions</a
+						>
 						{#if $userState}
 							<a
 								href="/mine"
@@ -202,6 +209,13 @@
 							? 'current'
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
 						aria-current="page">Problems over the world</a
+					>
+					<a
+						href="/solutions"
+						class="{$page.url.pathname === '/solutions'
+							? 'current'
+							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+						aria-current="page">Solutions</a
 					>
 					{#if $userState}
 						<a
