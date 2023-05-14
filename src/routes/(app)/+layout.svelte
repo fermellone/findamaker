@@ -82,18 +82,11 @@
 							aria-current="page">Problems over the world</a
 						>
 						<a
-							href="/mine"
-							class="{$page.url.pathname === '/mine'
+							href="/solutions"
+							class="{$page.url.pathname === '/solutions'
 								? 'current'
 								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-							>Problems you shared</a
-						>
-						<a
-							href="/solving"
-							class="{$page.url.pathname === '/solving'
-								? 'current'
-								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-							>Problems you're solving</a
+							aria-current="page">Solutions</a
 						>
 						<a
 							href="/twitter-problems"
@@ -102,6 +95,22 @@
 								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
 							>Twitter problems</a
 						>
+						{#if $userState}
+							<a
+								href="/mine"
+								class="{$page.url.pathname === '/mine'
+									? 'current'
+									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+								>Problems you shared</a
+							>
+							<a
+								href="/solving"
+								class="{$page.url.pathname === '/solving'
+									? 'current'
+									: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+								>Problems you're solving</a
+							>
+						{/if}
 					</div>
 				</div>
 				<div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -209,18 +218,11 @@
 						aria-current="page">Problems over the world</a
 					>
 					<a
-						href="/mine"
-						class="{$page.url.pathname === '/mine'
+						href="/solutions"
+						class="{$page.url.pathname === '/solutions'
 							? 'current'
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Problems you shared</a
-					>
-					<a
-						href="/solving"
-						class="{$page.url.pathname === '/solving'
-							? 'current'
-							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Problems you're solving</a
+						aria-current="page">Solutions</a
 					>
 					<a
 						href="/twitter-problems"
@@ -229,6 +231,22 @@
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
 						>Twitter problems</a
 					>
+					{#if $userState}
+						<a
+							href="/mine"
+							class="{$page.url.pathname === '/mine'
+								? 'current'
+								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+							>Problems you shared</a
+						>
+						<a
+							href="/solving"
+							class="{$page.url.pathname === '/solving'
+								? 'current'
+								: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+							>Problems you're solving</a
+						>
+					{/if}
 				</div>
 				<div class="border-t border-gray-200 pb-3 pt-4">
 					<div class="flex items-center px-4">

@@ -4,17 +4,13 @@
 	import type { Solution } from '../../../models/solution';
 	import { goto } from '$app/navigation';
 
-	pageTitle.set("Problems you're solving");
+	pageTitle.set('Solutions');
 
 	let solutions: Solution[] = [];
 
 	onMount(async () => {
 		try {
-			const response = await fetch(
-				`/api/solutions?userId=${
-					$userState?.id ?? JSON.parse(localStorage.getItem('user') ?? '{}').id ?? ''
-				}`
-			);
+			const response = await fetch('/api/solutions');
 
 			if (!response.ok)
 				throw new Error('Failed to fetch solutions. Please reload the page or try again later.');
@@ -33,6 +29,6 @@
 			<a href={solution.link}>{solution.description}</a>
 		</div>
 	{:else}
-		<p>You haven't added any solutions yet.</p>
+		<p>There are not solutions yet.</p>
 	{/each}
 </main>
