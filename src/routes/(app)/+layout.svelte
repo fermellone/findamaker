@@ -95,6 +95,13 @@
 								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
 							>Problems you're solving</a
 						>
+						<a
+							href="/twitter-problems"
+							class="{$page.url.pathname === '/twitter-problems'
+								? 'current'
+								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
+							>Twitter problems</a
+						>
 					</div>
 				</div>
 				<div class="hidden sm:ml-6 sm:flex sm:items-center">
@@ -215,6 +222,13 @@
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
 						>Problems you're solving</a
 					>
+					<a
+						href="/twitter-problems"
+						class="{$page.url.pathname === '/twitter-problems'
+							? 'current'
+							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
+						>Twitter problems</a
+					>
 				</div>
 				<div class="border-t border-gray-200 pb-3 pt-4">
 					<div class="flex items-center px-4">
@@ -286,7 +300,9 @@
 	<div class="py-10">
 		<header>
 			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-				<h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900">
+				<h1
+					class="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-gray-200"
+				>
 					{$pageTitle}
 				</h1>
 			</div>

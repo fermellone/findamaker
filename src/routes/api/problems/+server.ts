@@ -18,6 +18,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const newProblem = await prisma.problem.create({
 		data: {
+			type: 'tweet',
 			description: data.description,
 			author: {
 				connect: {
