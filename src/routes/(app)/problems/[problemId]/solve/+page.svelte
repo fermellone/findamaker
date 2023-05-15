@@ -32,7 +32,6 @@
 	};
 </script>
 
-<pre>{JSON.stringify(problem)}</pre>
 <div class="px-4 sm:px-0">
 	<h2 class="leading-2 mb-8">
 		We hardly encourage you to try to solve the problem yourself, maybe you only have a figma design
