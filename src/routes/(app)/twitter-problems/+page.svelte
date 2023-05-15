@@ -22,23 +22,5 @@
 		<p>No problems found.</p>
 	{:else}
 		<TweetsList {tweets} on:click-solve-tweet={gotoSolveTweet} />
-		<!-- <ul>
-			{#each tweets as tweet, index}
-				<li>
-					<a href="https://twitter.com/markjoonlee/status/{tweet.id}" target="_blank">
-						<span>@{tweet.user.username}</span>
-						<img
-							referrerpolicy="no-referrer"
-							src={tweet.user.profile_image_url?.replace('_normal', '_bigger') ??
-								'//placekitten.com/100/100'}
-							alt={tweet.user.name}
-						/>
-						<span>{tweet.text}</span>
-						<span>{tweet.retweet_count}</span>
-						<span>{tweet.like_count}</span>
-					</a>
-				</li>
-			{/each}
-		</ul> -->
 	{/if}
 </main>

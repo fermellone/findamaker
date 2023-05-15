@@ -17,7 +17,11 @@
 			class="flex flex-wrap items-center justify-between gap-x-6 sm:gap-y-4 py-5 px-4 sm:flex-nowrap"
 		>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<a href="https://twitter.com/markjoonlee/status/{tweet.id}" class="w-full cursor-pointer">
+			<a
+				href="https://twitter.com/markjoonlee/status/{tweet.id}"
+				target="_blank"
+				class="w-full cursor-pointer"
+			>
 				<p
 					class="text-sm font-semibold leading-6 dark:text-white text-gray-900 overflow-hidden line-clamp-2 select-none"
 				>
