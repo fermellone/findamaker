@@ -72,7 +72,7 @@
 					<div>
 						<label
 							for="username"
-							class="block text-sm font-medium leading-6 text-gray-900 hover:text-white dark:text-gray-200 dark:hover:text-gray-400"
+							class="block text-sm font-medium leading-6 text-gray-900 hover:text-gray-700 dark:text-gray-200 dark:hover:text-gray-400"
 							>Select a username</label
 						>
 						<div class="mt-2 flex rounded-sm shadow-sm">
