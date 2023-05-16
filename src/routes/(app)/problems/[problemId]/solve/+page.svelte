@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { pageTitle, userState } from '$lib/store';
 	import type { PageData } from './$types';
 
@@ -12,7 +13,11 @@
 
 	const handleSubmit = async (event: Event) => {
 		if (!$userState) {
-			goto(`/signin?next=/problems/${problem!.id}/solve}`);
+			goto(
+				`/signin?next=/problems/${problem!.id || problem?.tweetId}/solve${
+					!problem!.id ? '?type=tweet' : ''
+				}`
+			);
 		}
 
 		const form = event.target as HTMLFormElement;
