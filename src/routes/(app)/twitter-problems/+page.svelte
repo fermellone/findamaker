@@ -21,6 +21,19 @@
 	{#if !tweets.length}
 		<p>No problems found.</p>
 	{:else}
+		<span class="dark:text-gray-200">Here you have <b>{tweets.length}</b> problems to solve.</span>
 		<TweetsList {tweets} on:click-solve-tweet={gotoSolveTweet} />
+		{#if meta.next_token}
+			<form action="?load-more">
+				<input
+					class="hidden"
+					type="text"
+					id="next-token"
+					name="next-token"
+					value={meta.next_token}
+				/>
+				<button type="submit">Load more</button>
+			</form>
+		{/if}
 	{/if}
 </main>
