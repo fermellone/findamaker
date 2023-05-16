@@ -47,11 +47,11 @@
 						<img
 							class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
 							referrerpolicy="no-referrer"
-							src={problem.author.profilePicture}
-							alt={problem.author.name}
+							src={problem.author?.profilePicture}
+							alt={problem.author?.name}
 						/>
 						<p class="mx-2">
-							{problem.author.username}
+							{problem.author?.username}
 						</p>
 
 						<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
