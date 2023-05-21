@@ -9,7 +9,9 @@ export const GET: RequestHandler = async ({ params }) => {
 			authorId
 		},
 		include: {
-			problem: true
+			problem: true,
+			author: true,
+			upVotes: true
 		}
 	});
 

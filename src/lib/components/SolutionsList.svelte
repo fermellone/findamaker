@@ -1,63 +1,63 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { userState } from '$lib/store';
-	import type { Problem } from '../../models/problem';
 	import Modal from './Modal.svelte';
+	import type { Solution } from '../../models/solution';
 
-	export let problems: Problem[] = [];
-	export let onDeleteProblemCallback: (problem: Problem) => Promise<void>;
+	export let solutions: Solution[] = [];
+	export let onDeleteSolutionCallback: (solution: Solution) => Promise<void>;
 	let isDeleteModalOpen = false;
-	let deletingProblem: Problem | null = null;
+	let deletingSolution: Solution | null = null;
 
 	const dispatcher = createEventDispatcher();
 
-	const toggleUpVote = async (problem: Problem) => {
-		dispatcher('toggle-upvote', { problemId: problem.id });
+	const toggleUpVote = async (solution: Solution) => {
+		dispatcher('toggle-upvote', { solutionId: solution.id });
 	};
 
-	const openDeleteProblemModal = (problem: Problem) => {
-		deletingProblem = problem;
+	const openDeleteSolutionModal = (solution: Solution) => {
+		deletingSolution = solution;
 		isDeleteModalOpen = true;
 	};
 </script>
 
 <ul class="divide-y divide-gray-100">
-	{#each problems as problem}
+	{#each solutions as solution}
 		<li
 			class="flex flex-wrap items-center justify-between gap-x-6 sm:gap-y-4 py-5 px-4 sm:flex-nowrap"
 		>
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<div
 				on:click={() => {
-					dispatcher('click-solution', { problem });
+					dispatcher('click-solution', { solution: solution });
 				}}
 				class="w-full cursor-pointer"
 			>
 				<p
 					class="text-sm font-semibold leading-6 dark:text-white text-gray-900 overflow-hidden line-clamp-2 select-none"
 				>
-					{problem.description}
+					{solution.description}
 				</p>
 				<div class="mt-3 gap-x-2 text-xs leading-5 dark:text-gray-400 text-gray-500">
-					<p class="my-2">
+					<!-- <p class="my-2">
 						<span class="font-bold">Possible solutions: </span>
-						<span class="text-md">{problem.possibleSolutions.length}</span>
-					</p>
+						<span class="text-md">{solution.possibleSolutions.length}</span>
+					</p> -->
 					<div class="flex items-center">
 						<img
 							class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white"
 							referrerpolicy="no-referrer"
-							src={problem.author?.profilePicture}
-							alt={problem.author?.name}
+							src={solution.author?.profilePicture}
+							alt={solution.author?.name}
 						/>
 						<p class="mx-2">
-							{problem.author?.username}
+							{solution.author?.username}
 						</p>
 
 						<svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
 							<circle cx="1" cy="1" r="1" />
 						</svg>
-						<span class="ml-2">{new Date(problem.createdAt).toLocaleString()}</span>
+						<span class="ml-2">{new Date(solution.createdAt).toLocaleString()}</span>
 					</div>
 				</div>
 			</div>
@@ -66,10 +66,10 @@
 			>
 				<div
 					class="flex -space-x-0.5 justify-center items-center"
-					title={`These people\nhave the same problem.`}
+					title={`These people\n liked this solution.`}
 				>
 					<dt class="sr-only">Followers</dt>
-					{#each problem.upVotes.slice(0, 3) as upvote}
+					{#each solution.upVotes?.slice(0, 3) ?? [] as upvote}
 						<dd>
 							<img
 								referrerpolicy="no-referrer"
@@ -79,23 +79,23 @@
 							/>
 						</dd>
 					{/each}
-					{#if problem.upVotes.length > 3}
+					{#if solution.upVotes?.length > 3}
 						<dd>
 							<span
 								class="h-6 w-6 rounded-full bg-gray-50 ring-2 ring-white mb-2 flex items-center justify-center text-xs font-semibold text-gray-900"
 							>
-								+{problem.upVotes.length - 3}
+								+{solution.upVotes.length - 3}
 							</span>
 						</dd>
 					{/if}
 				</div>
 				<div class="flex w-16 gap-x-2.5 justify-center">
-					{#if problem.authorId === $userState?.id}
+					{#if solution.authorId === $userState?.id}
 						<dt>
-							<span class="sr-only">Delete this problem</span>
+							<span class="sr-only">Delete this solution</span>
 							<button
 								on:click={() => {
-									openDeleteProblemModal(problem);
+									openDeleteSolutionModal(solution);
 								}}
 								class="p-2 dark:bg-transparent bg-slate-50 border rounded-md text-red-500 border-red-500"
 							>
@@ -116,15 +116,15 @@
 					{:else}
 						<div class="flex flex-col items-center">
 							<span class="text-md font-bold leading-6 text-gray-900 text-center"
-								>{problem.upVotes.length}</span
+								>{solution.upVotes.length}</span
 							>
 							<dt>
 								<span class="sr-only">Toggle your vote</span>
 								<button
 									on:click={() => {
-										toggleUpVote(problem);
+										toggleUpVote(solution);
 									}}
-									class="p-2 dark:bg-transparent bg-slate-50 border rounded-md {problem.upVotes.find(
+									class="p-2 dark:bg-transparent bg-slate-50 border rounded-md {solution.upVotes.find(
 										(uv) => uv.userId === $userState?.id
 									)
 										? 'text-green-500 border-green-500'
@@ -153,13 +153,13 @@
 </ul>
 
 <Modal
-	title="Are you sure you want to delete this problem?"
-	subTitle={deletingProblem?.description ?? ''}
+	title="Are you sure you want to delete this solution?"
+	subTitle={deletingSolution?.description ?? ''}
 	showModal={isDeleteModalOpen}
 	onSubmitCallback={async () => {
-		if (deletingProblem) {
-			await onDeleteProblemCallback(deletingProblem);
-			deletingProblem = null;
+		if (deletingSolution) {
+			await onDeleteSolutionCallback(deletingSolution);
+			deletingSolution = null;
 			isDeleteModalOpen = false;
 		}
 	}}

@@ -43,7 +43,7 @@
 					problemId: newProblem.id,
 					problemDescription: newProblem.description,
 					problemAuthorId: newProblem.authorId,
-					problemAuthorEmail: newProblem.author.email
+					problemAuthorEmail: newProblem.author?.email
 				});
 
 				problems = [newProblem, ...problems];
@@ -159,7 +159,7 @@
 	{problems}
 	on:toggle-upvote={toggleUpVote}
 	onDeleteProblemCallback={deleteProblem}
-	on:click-problem={onProblemClicked}
+	on:click-solution={onProblemClicked}
 />
 
 <Modal

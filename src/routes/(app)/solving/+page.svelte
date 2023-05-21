@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import type { Solution } from '../../../models/solution';
 	import { goto } from '$app/navigation';
+	import SolutionsList from '$lib/components/SolutionsList.svelte';
 
 	pageTitle.set("Problems you're solving");
 
@@ -25,14 +26,18 @@
 			goto('/');
 		}
 	});
+
+	const deleteSolution = async (solution: Solution) => {
+		try {
+			await fetch(`/api/solution/${solution.id}`, {
+				method: 'DELETE'
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
 </script>
 
 <main>
-	{#each solutions as solution}
-		<div>
-			<a href={solution.link}>{solution.description}</a>
-		</div>
-	{:else}
-		<p>You haven't added any solutions yet.</p>
-	{/each}
+	<SolutionsList {solutions} onDeleteSolutionCallback={deleteSolution} />
 </main>
