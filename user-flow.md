@@ -16,7 +16,7 @@ graph TD;
     CI-->CJ[Pay the rest to the developer]
 
 
-    D-->|Developer|DA[Sign up]
+    B-->|Developer|DA[Sign up]
     DA-->DB[Adds a description of they skills]
     DB-->DC[Get a list of projects]
     DC-->DD[Send a request to the customer to participate on a project]
