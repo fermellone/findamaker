@@ -88,13 +88,6 @@
 								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
 							aria-current="page">Solutions</a
 						>
-						<!-- <a
-							href="/twitter-problems"
-							class="{$page.url.pathname === '/twitter-problems'
-								? 'current'
-								: 'default'} desktop inline-flex items-center border-b-2 px-1 pt-1 text-sm font-medium"
-							>Twitter problems</a
-						> -->
 						{#if $userState}
 							<a
 								href="/mine"
@@ -224,13 +217,6 @@
 							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
 						aria-current="page">Solutions</a
 					>
-					<!-- <a
-						href="/twitter-problems"
-						class="{$page.url.pathname === '/twitter-problems'
-							? 'current'
-							: 'default'} mobile block border-l-4 py-2 pl-3 pr-4 text-base font-medium"
-						>Twitter problems</a
-					> -->
 					{#if $userState}
 						<a
 							href="/mine"

@@ -1,5 +1,4 @@
 import prisma from '$lib/prisma';
-import { getTweet } from '$lib/twitter';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request, params }) => {
@@ -8,25 +7,6 @@ export const POST: RequestHandler = async ({ request, params }) => {
 	if (!description) return new Response('Description is required', { status: 400 });
 
 	let problemId: number | undefined;
-
-	if (type == 'tweet') {
-		const tweet = await getTweet(params.id);
-
-		const newProblem = await prisma.problem.create({
-			data: {
-				type: 'tweet',
-				tweetId: params.id,
-				description: tweet.data.text,
-				author: {
-					connect: {
-						id: authorId
-					}
-				}
-			}
-		});
-
-		problemId = newProblem.id;
-	}
 
 	const newSolution = await prisma.solution.create({
 		data: {
